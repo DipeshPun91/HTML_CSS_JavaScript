@@ -8,8 +8,12 @@
 }
 
 :root {
-  --clr: #ffffff;
-  --card: #03aed2;
+  --clr: #f0f3ff;
+  --card: #071952;
+  --button: #15f5ba;
+  --text-primary: #f0f3ff;
+  --text-secondary: #475569;
+  --info-box: #e2f2ff;
 }
 
 ul {
@@ -32,6 +36,7 @@ ul {
   flex-direction: column;
   justify-content: space-between;
 }
+
 .card .box {
   position: relative;
   width: 110%;
@@ -39,6 +44,7 @@ ul {
   background: var(--card);
   border-radius: 15px;
 }
+
 .card .box:nth-child(1):before {
   content: "";
   position: absolute;
@@ -51,6 +57,7 @@ ul {
   border-bottom-left-radius: 20px;
   box-shadow: -6px 6px var(--clr);
 }
+
 .card .box:nth-child(1) video {
   width: 100%;
   height: 100%;
@@ -58,6 +65,7 @@ ul {
   object-fit: cover;
   border-radius: 15px;
 }
+
 .card .box:nth-child(1):after {
   content: "";
   position: absolute;
@@ -70,11 +78,13 @@ ul {
   border-bottom-left-radius: 20px;
   box-shadow: -6px 6px var(--clr);
 }
+
 .card .box:nth-child(2) {
   background: var(--card);
   height: 250px;
   width: 100%;
 }
+
 .card .box:nth-child(2):before {
   content: "";
   position: absolute;
@@ -86,6 +96,7 @@ ul {
   border-top-left-radius: 20px;
   box-shadow: -6px -6px var(--clr);
 }
+
 .card .box:nth-child(2):after {
   content: "";
   position: absolute;
@@ -124,18 +135,20 @@ ul {
 .content {
   padding: 30px 10px 20px;
 }
+
 .content h1 {
   padding-left: 120px;
   font-size: 22px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-primary);
   padding-bottom: 30px;
 }
+
 .content h1 span {
   display: block;
   font-size: 12px;
   text-transform: uppercase;
-  color: #475569;
+  color: var(--text-secondary);
 }
 
 .content ul {
@@ -145,17 +158,20 @@ ul {
   padding-top: 20px;
   padding-bottom: 12px;
 }
+
 .content ul li {
   width: 33.33%;
   padding: 0 6px;
 }
+
 .info-box {
   border-radius: 8px;
   padding: 8px;
   text-align: center;
   font-size: 14px;
-  background: #e2f2ff;
+  background: var(--info-box);
 }
+
 .info-box span {
   display: block;
   font-weight: 700;
@@ -171,11 +187,12 @@ ul {
   border: 0;
   font-size: 16px;
   font-weight: 700;
-  background: #03aed2;
-  color: #ffffff;
+  background: var(--button);
+  color: black;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
+
 .btn:hover {
   transform: scale3d(1.05, 1.05, 1);
 }
