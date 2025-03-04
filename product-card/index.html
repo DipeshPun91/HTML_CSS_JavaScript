@@ -9,7 +9,6 @@
   <body>
     <div class="container">
       <div class="order-card">
-        <!-- Header Section -->
         <header class="order-header">
           <button class="back-btn" aria-label="Go back">←</button>
           <div class="order-meta">
@@ -18,8 +17,6 @@
             <span class="delivery-day">Friday</span>
           </div>
         </header>
-
-        <!-- Delivery Illustration -->
         <div class="delivery-graphic">
           <img
             src="https://i.ibb.co/qWH1nD6/undraw-Order-delivered-re-v4ab.png"
@@ -27,8 +24,6 @@
             class="delivery-image"
           />
         </div>
-
-        <!-- Progress Tracking -->
         <div class="progress-tracker">
           <div class="progress-step current">
             <div class="step-indicator"></div>
@@ -47,56 +42,52 @@
             <span class="step-label">Delivered</span>
           </div>
         </div>
-
-        <!-- Order Details -->
         <section class="order-details">
           <div class="details-header">
             <h2>Order Summary</h2>
             <button class="toggle-details">View Details</button>
           </div>
-
-          <div class="items-list">
-            <div class="order-item">
-              <img
-                src="https://via.placeholder.com/80"
-                alt="Mens Winter Jacket"
-                class="item-image"
-              />
-              <div class="item-info">
-                <h3>Winter Thermal Jacket</h3>
-                <p class="item-price">$89.99</p>
-                <p class="item-sku">SKU: JKT-2024-WNTR</p>
+          <div class="details-content">
+            <div class="items-list">
+              <div class="order-item">
+                <img
+                  src="https://via.placeholder.com/80"
+                  alt="Mens Winter Jacket"
+                  class="item-image"
+                />
+                <div class="item-info">
+                  <h3>Winter Thermal Jacket</h3>
+                  <p class="item-price">$89.99</p>
+                  <p class="item-sku">SKU: JKT-2024-WNTR</p>
+                </div>
+              </div>
+              <div class="order-item">
+                <img
+                  src="https://via.placeholder.com/80"
+                  alt="Running Shoes"
+                  class="item-image"
+                />
+                <div class="item-info">
+                  <h3>Pro Running Shoes</h3>
+                  <p class="item-price">$129.99</p>
+                  <p class="item-sku">SKU: SHOE-2024-RUN</p>
+                </div>
               </div>
             </div>
-            <div class="order-item">
-              <img
-                src="https://via.placeholder.com/80"
-                alt="Running Shoes"
-                class="item-image"
-              />
-              <div class="item-info">
-                <h3>Pro Running Shoes</h3>
-                <p class="item-price">$129.99</p>
-                <p class="item-sku">SKU: SHOE-2024-RUN</p>
-              </div>
+            <div class="shipping-info">
+              <h3>Shipping Address</h3>
+              <address>
+                123 Main Street<br />
+                Suite 450<br />
+                New York, NY 10001<br />
+                United States
+              </address>
             </div>
           </div>
-
-          <div class="shipping-info">
-            <h3>Shipping Address</h3>
-            <address>
-              123 Main Street<br />
-              Suite 450<br />
-              New York, NY 10001<br />
-              United States
-            </address>
-          </div>
-
           <button class="cancel-order">Request Order Cancellation</button>
         </section>
       </div>
     </div>
-
     <script src="js/script.js"></script>
   </body>
 </html>

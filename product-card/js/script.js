@@ -1,25 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Back button functionality
   document.querySelector(".back-btn").addEventListener("click", () => {
     window.history.back();
   });
 
-  // Toggle order details
   const toggleButton = document.querySelector(".toggle-details");
-  const orderItems = document.querySelector(".items-list");
+  const detailsContent = document.querySelector(".details-content");
 
   toggleButton.addEventListener("click", () => {
-    const isOpen = orderItems.style.maxHeight;
+    const isOpen = detailsContent.classList.contains("active");
+
     if (isOpen) {
-      orderItems.style.maxHeight = null;
+      detailsContent.classList.remove("active");
       toggleButton.textContent = "View Details";
     } else {
-      orderItems.style.maxHeight = orderItems.scrollHeight + "px";
+      detailsContent.classList.add("active");
       toggleButton.textContent = "Hide Details";
     }
   });
 
-  // Dynamic delivery date calculation
   function updateDeliveryDate() {
     const deliveryDate = new Date();
     deliveryDate.setDate(deliveryDate.getDate() + 5);
@@ -38,14 +36,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   updateDeliveryDate();
 
-  // Order cancellation confirmation
   document.querySelector(".cancel-order").addEventListener("click", (e) => {
-    if (!confirm("Are you sure you want to cancel this order?")) {
-      e.preventDefault();
+    e.preventDefault();
+    const isConfirmed = confirm("Are you sure you want to cancel this order?");
+
+    if (isConfirmed) {
+      alert("Your order cancellation request has been submitted.");
+    } else {
+      alert("Order cancellation request canceled.");
     }
   });
 
-  // Progress tracker animation
   document.querySelectorAll(".progress-step").forEach((step, index) => {
     step.addEventListener("click", () => {
       document.querySelectorAll(".progress-step").forEach((s, i) => {

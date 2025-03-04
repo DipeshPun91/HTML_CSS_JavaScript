@@ -1,10 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Segoe:400,500,700");
 
 :root {
-  --primary-color: #2a2a72;
-  --secondary-color: #009ffd;
-  --background-color: #f8f9fa;
-  --text-color: #2b2b2b;
+  --primary-color: #2563eb;
+  --secondary-color: #3b82f6;
+  --background-color: #f8fafc;
+  --text-color: #1e293b;
   --success-color: #00c853;
   --warning-color: #ffab00;
   --error-color: #d32f2f;
@@ -47,7 +47,7 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .back-btn {
@@ -76,8 +76,8 @@ body {
 }
 
 .delivery-date {
-  font-size: 1.5rem;
-  margin: 0.25rem 0;
+  font-size: 1.8rem;
+  margin: 0.5rem 0;
   color: var(--primary-color);
 }
 
@@ -100,8 +100,8 @@ body {
 .progress-tracker {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  margin: 2rem 0;
+  gap: 0.5rem;
+  margin: 2.5rem 0;
   position: relative;
 }
 
@@ -113,10 +113,10 @@ body {
 .progress-step::after {
   content: "";
   position: absolute;
-  top: 12px;
-  left: 50%;
-  right: -50%;
-  height: 2px;
+  top: 14px;
+  left: calc(50% + 16px);
+  right: calc(-50% + 16px);
+  height: 3px;
   background: #ddd;
   z-index: 0;
 }
@@ -126,10 +126,10 @@ body {
 }
 
 .step-indicator {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   background: #fff;
-  border: 2px solid #ddd;
+  border: 3px solid #ddd;
   border-radius: 50%;
   margin: 0 auto 0.5rem;
   position: relative;
@@ -140,7 +140,12 @@ body {
 .progress-step.current .step-indicator {
   border-color: var(--primary-color);
   background: var(--primary-color);
-  box-shadow: 0 0 0 4px rgba(42, 42, 114, 0.2);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+}
+
+.progress-step.current .step-label {
+  color: var(--primary-color);
+  font-weight: 600;
 }
 
 .step-label {
@@ -161,8 +166,9 @@ body {
 }
 
 .toggle-details {
-  background: var(--background-color);
-  border: none;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: var(--primary-color);
   padding: 0.5rem 1rem;
   border-radius: var(--border-radius);
   cursor: pointer;
@@ -171,23 +177,22 @@ body {
 }
 
 .toggle-details:hover {
-  background: #e2e6ea;
+  background: #dbeafe;
 }
 
 .items-list {
   display: grid;
   gap: 1.5rem;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-out;
 }
 
 .order-item {
   display: flex;
   gap: 1rem;
-  padding: 1rem;
+  padding: 1.25rem;
   background: var(--background-color);
   border-radius: var(--border-radius);
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .item-image {
@@ -199,6 +204,11 @@ body {
 
 .item-info {
   flex-grow: 1;
+}
+
+.item-info h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
 }
 
 .item-price {
@@ -213,10 +223,11 @@ body {
 }
 
 .shipping-info {
-  margin: 2rem 0;
-  padding: 1.5rem;
+  margin: 1.5rem 0;
+  padding: 1.25rem;
   background: var(--background-color);
   border-radius: var(--border-radius);
+  border: 1px solid #e2e8f0;
 }
 
 .shipping-info h3 {
@@ -233,10 +244,24 @@ body {
   cursor: pointer;
   transition: opacity 0.2s;
   font-weight: 500;
+  margin-top: 1.5rem;
+  font-size: 1rem;
 }
 
 .cancel-order:hover {
   opacity: 0.9;
+}
+
+.details-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+  opacity: 0;
+}
+
+.details-content.active {
+  max-height: 800px;
+  opacity: 1;
 }
 
 @media (max-width: 480px) {
@@ -245,6 +270,19 @@ body {
   }
 
   .order-card {
-    border-radius: var(--border-radius);
+    padding: 1.25rem;
+  }
+
+  .delivery-date {
+    font-size: 1.4rem;
+  }
+
+  .step-label {
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+
+  .item-info h3 {
+    font-size: 1rem;
   }
 }
