@@ -44,3 +44,45 @@ function updateClock() {
 }
 
 updateClock();
+
+function updateClock() {
+  const now = new Date();
+  const hours = now.getHours() % 12;
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
+  const milliseconds = now.getMilliseconds();
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  const smoothSeconds = seconds + milliseconds / 1000;
+  const smoothMinutes = minutes + smoothSeconds / 60;
+  const smoothHours = hours + smoothMinutes / 60;
+
+  document
+    .querySelector(".seconds")
+    .setAttribute("transform", `rotate(${smoothSeconds * 6})`);
+  document
+    .querySelector(".minutes")
+    .setAttribute("transform", `rotate(${smoothMinutes * 6})`);
+  document
+    .querySelector(".hours")
+    .setAttribute("transform", `rotate(${smoothHours * 30 - 15})`);
+
+  document.querySelector(".time-display").textContent =
+    now.toLocaleTimeString();
+  document.querySelector(".day-display").textContent = days[now.getDay()];
+
+  requestAnimationFrame(updateClock);
+}
+
+document.querySelector(".hands .seconds path").setAttribute("fill", "#3F51B5");
+document
+  .querySelector(".hands .seconds circle")
+  .setAttribute("stroke", "#3F51B5");

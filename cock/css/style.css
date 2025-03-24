@@ -26,3 +26,31 @@ svg {
 svg text {
   font-family: "Barlow Condensed", sans-serif;
 }
+
+svg circle[r="42"] {
+  fill: #3f51b5;
+}
+
+.time-info {
+  background: #303335;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  margin-top: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.time-display {
+  color: #fff;
+  font-size: 2.5rem;
+  font-family: "Barlow Condensed", sans-serif;
+  letter-spacing: 2px;
+}
+
+.day-display {
+  color: #3f51b5;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-top: 0.5rem;
+}
