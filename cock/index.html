@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
     <title>Clock</title>
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
     <svg viewBox="0 0 100 100" width="100" height="100">
@@ -52,11 +52,15 @@
       ></circle>
 
       <g class="hands" transform="translate(50 50)">
-        <g class="minutes" transform="rotate(240)">
+        <g class="minutes">
           <path fill="#fff" d="M -0.4 8 h 0.8 v -33 h -0.8 z"></path>
           <circle fill="#303335" cx="0" cy="0" r="0.6"></circle>
         </g>
-        <g class="seconds" transform="rotate(80)">
+        <g class="hours">
+          <path fill="#fff" d="M -0.4 6 h 0.8 v -25 h -0.8 z"></path>
+          <circle fill="#303335" cx="0" cy="0" r="0.8"></circle>
+        </g>
+        <g class="seconds">
           <path fill="#EA3F3F" d="M -0.4 10 h 0.8 v -45 h -0.8 z"></path>
           <circle
             stroke-width="0.4"
@@ -70,24 +74,6 @@
       </g>
     </svg>
 
-    <div class="controls">
-      <div class="controls__control" data-control="hours">
-        <button>+</button>
-        <span class="control--hours">h</span>
-        <button>-</button>
-      </div>
-      <div class="controls__control" data-control="minutes">
-        <button>+</button>
-        <span class="control--minutes">m</span>
-        <button>-</button>
-      </div>
-      <div class="controls__control" data-control="seconds">
-        <button>+</button>
-        <span class="control--seconds">s</span>
-        <button>-</button>
-      </div>
-    </div>
-
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
   </body>
 </html>
