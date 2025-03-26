@@ -3,75 +3,62 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Clock</title>
+    <title>Classic Analog Clock</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
     <svg viewBox="0 0 100 100" width="100" height="100">
       <defs>
         <filter id="shadow-large">
-          <feDropShadow dx="0" dy="0" stdDeviation="4" />
+          <feDropShadow dx="0" dy="0" stdDeviation="2" flood-opacity="0.3" />
         </filter>
-        <filter id="shadow-small">
-          <feDropShadow dx="0" dy="0" stdDeviation="0.2" />
-        </filter>
-        <mask id="mask">
-          <g transform="translate(50 50)">
-            <g class="hours" transform="rotate(-15)">
-              <circle cx="0" cy="0" r="50" fill="#fff"></circle>
-              <path d="M 0 -50 v 50 l 28.86 -50" fill="#000"></path>
-            </g>
-          </g>
-        </mask>
       </defs>
 
-      <circle cx="50" cy="50" r="46" fill="#303335"></circle>
       <circle
         cx="50"
         cy="50"
-        r="42"
-        fill="#EA3F3F"
+        r="48"
+        fill="#f0f0f0"
+        stroke="#ddd"
+        stroke-width="0.5"
         filter="url(#shadow-large)"
       ></circle>
 
+      <g class="minute-marks" transform="translate(50 50)"></g>
+
       <g
         class="clock--face"
-        font-size="8px"
+        font-size="7"
         transform="translate(50 50)"
         text-anchor="middle"
         dominant-baseline="middle"
+        fill="#333"
       ></g>
 
-      <circle mask="url(#mask)" cx="50" cy="50" r="50" fill="#303335"></circle>
+      <g class="hands" transform="translate(50 50)">
+        <g class="hours">
+          <path fill="#333" d="M -1.5 -20 l 3 0 0.8 20 -4.6 0 z"></path>
+          <circle fill="#333" cx="0" cy="0" r="2"></circle>
+        </g>
+        <g class="minutes">
+          <path fill="#666" d="M -1 -30 l 2 0 0.6 30 -3.2 0 z"></path>
+          <circle fill="#666" cx="0" cy="0" r="1.5"></circle>
+        </g>
+        <g class="seconds">
+          <path fill="#EA3F3F" d="M -0.5 -40 l 1 0 0.2 40 -1.4 0 z"></path>
+          <circle fill="#EA3F3F" cx="0" cy="0" r="1"></circle>
+          <circle fill="#EA3F3F" cx="0" cy="25" r="1.5"></circle>
+        </g>
+      </g>
+
       <circle
         cx="50"
         cy="50"
-        r="4"
-        filter="url(#shadow-small)"
-        fill="#303335"
+        r="1.5"
+        fill="#EA3F3F"
+        stroke="#333"
+        stroke-width="0.2"
       ></circle>
-
-      <g class="hands" transform="translate(50 50)">
-        <g class="minutes">
-          <path fill="#fff" d="M -0.4 8 h 0.8 v -33 h -0.8 z"></path>
-          <circle fill="#303335" cx="0" cy="0" r="0.6"></circle>
-        </g>
-        <g class="hours">
-          <path fill="#fff" d="M -0.4 6 h 0.8 v -25 h -0.8 z"></path>
-          <circle fill="#303335" cx="0" cy="0" r="0.8"></circle>
-        </g>
-        <g class="seconds">
-          <path fill="#EA3F3F" d="M -0.4 10 h 0.8 v -45 h -0.8 z"></path>
-          <circle
-            stroke-width="0.4"
-            stroke="#EA3F3F"
-            fill="#303335"
-            cx="0"
-            cy="0"
-            r="0.8"
-          ></circle>
-        </g>
-      </g>
     </svg>
 
     <div class="time-info">
