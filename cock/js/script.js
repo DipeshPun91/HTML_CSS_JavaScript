@@ -11,18 +11,18 @@ for (let i = 0; i < 60; i++) {
 
 const clockFace = document.querySelector("svg g.clock--face");
 const hourPositions = [
-  { num: "12", angle: 0 },
-  { num: "1", angle: 30 },
-  { num: "2", angle: 60 },
-  { num: "3", angle: 90 },
-  { num: "4", angle: 120 },
-  { num: "5", angle: 150 },
-  { num: "6", angle: 180 },
-  { num: "7", angle: 210 },
-  { num: "8", angle: 240 },
-  { num: "9", angle: 270 },
-  { num: "10", angle: 300 },
-  { num: "11", angle: 330 },
+  { num: "12", angle: -90 },
+  { num: "1", angle: -60 },
+  { num: "2", angle: -30 },
+  { num: "3", angle: 0 },
+  { num: "4", angle: 30 },
+  { num: "5", angle: 60 },
+  { num: "6", angle: 90 },
+  { num: "7", angle: 120 },
+  { num: "8", angle: 150 },
+  { num: "9", angle: 180 },
+  { num: "10", angle: -120 },
+  { num: "11", angle: -150 },
 ];
 
 hourPositions.forEach((pos) => {
