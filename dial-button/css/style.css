@@ -1,0 +1,236 @@
+@import url("https://fonts.googleapis.com/css2?family=Sen:wght@400;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Sen", sans-serif;
+}
+
+:root {
+  --clr: #071952;
+  --card: #f0f3ff;
+  --button: #15f5ba;
+  --text-primary: #071952;
+  --text-secondary: #475569;
+  --info-box: #e2f2ff;
+
+  /* Seasonal colors */
+  --spring: #4caf50;
+  --summer: #ff9800;
+  --autumn: #795548;
+  --winter: #03a9f4;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.container {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  background: var(--clr);
+  padding: 48px 16px;
+}
+
+.content h1 {
+  padding-left: 0;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.content h1 span {
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+.card {
+  position: relative;
+  width: 640px;
+  height: 460px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 48%;
+}
+
+.card .box {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background: var(--card);
+  border-radius: 15px;
+  padding: 20px;
+}
+
+/* Left side boxes */
+.card .box.left:nth-child(1) {
+  background: var(--spring);
+  color: white;
+}
+.card .box.left:nth-child(1) h1 {
+  color: white;
+}
+.card .box.left:nth-child(1) h1 span {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.card .box.left:nth-child(2) {
+  background: var(--summer);
+  color: white;
+  height: 250px;
+}
+.card .box.left:nth-child(2) h1 {
+  color: white;
+}
+.card .box.left:nth-child(2) h1 span {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Right side boxes */
+.card .box.right:nth-child(1) {
+  background: var(--autumn);
+  color: white;
+}
+.card .box.right:nth-child(1) h1 {
+  color: white;
+}
+.card .box.right:nth-child(1) h1 span {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.card .box.right:nth-child(2) {
+  background: var(--winter);
+  color: white;
+  height: 250px;
+}
+.card .box.right:nth-child(2) h1 {
+  color: white;
+}
+.card .box.right:nth-child(2) h1 span {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Seasonal features lists */
+.season-features {
+  margin-top: 15px;
+}
+.season-features li {
+  margin-bottom: 8px;
+  position: relative;
+  padding-left: 20px;
+}
+.season-features li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: white;
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* Center circle button */
+.circle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  background: var(--button);
+  border-radius: 100%;
+  border: none;
+  overflow: hidden;
+  z-index: 20;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.circle-btn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.circle-btn span {
+  font-weight: bold;
+  font-size: 16px;
+  color: var(--text-primary);
+}
+
+.content {
+  padding: 20px;
+}
+
+.content h1 {
+  padding-left: 0;
+  font-size: 22px;
+  font-weight: 700;
+  padding-bottom: 15px;
+}
+
+.content h1 span {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.info-box {
+  border-radius: 8px;
+  padding: 8px;
+  text-align: center;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease-in-out;
+  color: white;
+  margin-top: 10px;
+}
+
+.info-box:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.info-box span {
+  display: block;
+  font-weight: 700;
+  font-size: 15px;
+  padding-top: 4px;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 0;
+  font-size: 16px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-top: 15px;
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale3d(1.05, 1.05, 1);
+}
