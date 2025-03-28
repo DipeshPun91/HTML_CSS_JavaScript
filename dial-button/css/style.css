@@ -91,6 +91,8 @@ main {
   appearance: none;
   -webkit-tap-highlight-color: transparent;
   transform: rotate(var(--rotation, -135deg));
+  transform-origin: center;
+  z-index: 2;
 }
 
 .volume__dial:before {
@@ -101,6 +103,8 @@ main {
   left: 46.5%;
   width: 7%;
   height: 7%;
+  border-radius: 50%;
+  z-index: 3;
 }
 
 .volume__dial-label {
@@ -124,6 +128,7 @@ main {
   inset: 12.5%;
   width: 75%;
   height: 75%;
+  z-index: 1;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -145,6 +150,7 @@ main {
   width: 2%;
   height: 50%;
   transform-origin: 50% 100%;
+  z-index: 0;
 }
 
 .volume__dot:before {
