@@ -93,6 +93,8 @@ main {
   transform: rotate(var(--rotation, -135deg));
   transform-origin: center;
   z-index: 2;
+  touch-action: none;
+  user-select: none;
 }
 
 .volume__dial:before {
