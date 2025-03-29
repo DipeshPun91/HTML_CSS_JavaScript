@@ -15,12 +15,13 @@ class VolumeDial {
     this.dial = this.element.querySelector(".volume__dial");
     this.control = this.element.querySelector(".volume__control");
 
+    this.currentRotation = this.minAngle + this.volume * this.angleSpan;
     this.init();
   }
 
   init() {
     this.createDots();
-    this.setRotation(this.minAngle + this.volume * this.angleSpan);
+    this.setRotation(this.currentRotation);
     this.setupDrag();
     this.setupKeyboard();
   }
@@ -40,8 +41,9 @@ class VolumeDial {
 
   setRotation(angle) {
     angle = Math.max(this.minAngle, Math.min(this.maxAngle, angle));
+    this.currentRotation = angle;
     this.dial.style.setProperty("--rotation", `${angle}deg`);
-    this.dial.offsetHeight;
+
     const currentTick = Math.floor(
       ((angle - this.minAngle) / this.angleSpan) * this.ticks
     );
@@ -49,6 +51,7 @@ class VolumeDial {
     dots.forEach((dot, index) => {
       dot.classList.toggle("volume__dot--filled", index < currentTick);
     });
+
     const percent = Math.round(
       ((angle - this.minAngle) / this.angleSpan) * 100
     );
@@ -57,33 +60,34 @@ class VolumeDial {
 
   setupDrag() {
     let isDragging = false;
-    let startAngle = 0;
-    let startRotation = 0;
+    let startAngle, startRotation;
 
-    const getAngle = (clientX, clientY) => {
+    const getAngleFromEvent = (clientX, clientY) => {
       const rect = this.dial.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
       const x = clientX - centerX;
       const y = clientY - centerY;
-      let angle = Math.atan2(y, x) * (180 / Math.PI);
-      return Math.max(this.minAngle, Math.min(this.maxAngle, angle));
+      return Math.atan2(y, x) * (180 / Math.PI);
     };
 
     const startDrag = (clientX, clientY) => {
       isDragging = true;
-      const currentRotation =
-        parseFloat(this.dial.style.getPropertyValue("--rotation")) ||
-        this.minAngle;
-      startRotation = currentRotation;
-      startAngle = getAngle(clientX, clientY) - startRotation;
+      startRotation = this.currentRotation;
+      startAngle = getAngleFromEvent(clientX, clientY);
       this.dial.style.cursor = "grabbing";
     };
 
     const doDrag = (clientX, clientY) => {
       if (!isDragging) return;
-      const angle = getAngle(clientX, clientY) - startAngle;
-      this.setRotation(angle);
+      const currentAngle = getAngleFromEvent(clientX, clientY);
+      let angleDelta = currentAngle - startAngle;
+
+      if (angleDelta > 180) angleDelta -= 360;
+      if (angleDelta < -180) angleDelta += 360;
+
+      const newRotation = startRotation + angleDelta;
+      this.setRotation(newRotation);
     };
 
     const endDrag = () => {
@@ -96,7 +100,10 @@ class VolumeDial {
       e.preventDefault();
     });
 
-    document.addEventListener("mousemove", (e) => doDrag(e.clientX, e.clientY));
+    document.addEventListener("mousemove", (e) => {
+      doDrag(e.clientX, e.clientY);
+    });
+
     document.addEventListener("mouseup", endDrag);
 
     this.dial.addEventListener("touchstart", (e) => {
@@ -118,15 +125,8 @@ class VolumeDial {
       const down = e.code === "ArrowDown" || e.code === "ArrowLeft";
       if (up || down) {
         e.preventDefault();
-        const currentRotation =
-          parseFloat(this.dial.style.getPropertyValue("--rotation")) ||
-          this.minAngle;
         const step = this.angleSpan / this.ticks;
-        let newRotation = currentRotation + (up ? step : -step);
-        newRotation = Math.max(
-          this.minAngle,
-          Math.min(this.maxAngle, newRotation)
-        );
+        let newRotation = this.currentRotation + (up ? step : -step);
         this.setRotation(newRotation);
       }
     });
@@ -136,11 +136,14 @@ class VolumeDial {
 document.addEventListener("DOMContentLoaded", () => {
   new VolumeDial(document.getElementById("dial1"), {
     color: "blue",
-    volume: 0,
+    volume: 0.5,
   });
   new VolumeDial(document.getElementById("dial2"), {
     color: "green",
-    volume: 0,
+    volume: 0.25,
   });
-  new VolumeDial(document.getElementById("dial3"), { color: "red", volume: 0 });
+  new VolumeDial(document.getElementById("dial3"), {
+    color: "red",
+    volume: 0.75,
+  });
 });
