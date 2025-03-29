@@ -1,0 +1,69 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Secure Access Terminal</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1 class="glitch-title">ERROR: ACCESS DENIED</h1>
+      </header>
+
+      <main>
+        <section class="keypad-section">
+          <div class="keypad-container">
+            <div class="pin-display">
+              <div class="pin-dots">
+                <span class="pin-dot"></span>
+                <span class="pin-dot"></span>
+                <span class="pin-dot"></span>
+                <span class="pin-dot"></span>
+              </div>
+            </div>
+            <div class="keypad-grid">
+              <button class="key" data-key="1">1</button>
+              <button class="key" data-key="2">2</button>
+              <button class="key" data-key="3">3</button>
+              <button class="key" data-key="4">4</button>
+              <button class="key" data-key="5">5</button>
+              <button class="key" data-key="6">6</button>
+              <button class="key" data-key="7">7</button>
+              <button class="key" data-key="8">8</button>
+              <button class="key" data-key="9">9</button>
+              <button class="key key-delete" data-key="delete">DEL</button>
+              <button class="key" data-key="0">0</button>
+              <button class="key key-unlock" data-key="unlock">UNLOCK</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="log-section">
+          <div class="log-container">
+            <div class="log-header">
+              <h2>CIPHER ATTEMPT LOG</h2>
+              <div class="attempts-counter">
+                <span class="attempts-text">ATTEMPTS REMAINING:</span>
+                <span class="attempts-number">5</span>
+              </div>
+            </div>
+            <div class="log-content" id="log-content">
+              <div class="log-placeholder">
+                <div class="scanner-line"></div>
+                <p>ENTER ACCESS CODE</p>
+                <p>5 ATTEMPTS BEFORE SECURITY LOCKDOWN</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <div class="overlay"></div>
+      <div class="scanlines"></div>
+      <div class="glow"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
