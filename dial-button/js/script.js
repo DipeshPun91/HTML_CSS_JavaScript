@@ -5,17 +5,19 @@ class VolumeDial {
     this.volume = options.volume || 0;
     this.color = options.color || "";
     this.label = options.label || "Volume";
+    this.clockwise = options.clockwise !== false;
 
     this.minAngle = -135;
     this.maxAngle = 135;
     this.angleSpan = this.maxAngle - this.minAngle;
     this.dotSectorAngle = this.angleSpan / this.ticks;
-    this.dotSectorAngleOffset = -this.angleSpan / 2 + this.dotSectorAngle / 2;
+    this.dotSectorAngleOffset = this.minAngle + this.dotSectorAngle / 2;
 
     this.dial = this.element.querySelector(".volume__dial");
     this.control = this.element.querySelector(".volume__control");
 
     this.currentRotation = this.minAngle + this.volume * this.angleSpan;
+    this.lastAngle = null;
     this.init();
   }
 
@@ -42,7 +44,9 @@ class VolumeDial {
   setRotation(angle) {
     angle = Math.max(this.minAngle, Math.min(this.maxAngle, angle));
     this.currentRotation = angle;
-    this.dial.style.setProperty("--rotation", `${angle}deg`);
+
+    const rotationAngle = this.clockwise ? angle : -angle;
+    this.dial.style.setProperty("--rotation", `${rotationAngle}deg`);
 
     const currentTick = Math.floor(
       ((angle - this.minAngle) / this.angleSpan) * this.ticks
@@ -60,7 +64,7 @@ class VolumeDial {
 
   setupDrag() {
     let isDragging = false;
-    let startAngle, startRotation;
+    let startRotation;
 
     const getAngleFromEvent = (clientX, clientY) => {
       const rect = this.dial.getBoundingClientRect();
@@ -74,25 +78,31 @@ class VolumeDial {
     const startDrag = (clientX, clientY) => {
       isDragging = true;
       startRotation = this.currentRotation;
-      startAngle = getAngleFromEvent(clientX, clientY);
+      this.lastAngle = getAngleFromEvent(clientX, clientY);
       this.dial.style.cursor = "grabbing";
     };
 
     const doDrag = (clientX, clientY) => {
       if (!isDragging) return;
+
       const currentAngle = getAngleFromEvent(clientX, clientY);
-      let angleDelta = currentAngle - startAngle;
+
+      let angleDelta = currentAngle - this.lastAngle;
 
       if (angleDelta > 180) angleDelta -= 360;
       if (angleDelta < -180) angleDelta += 360;
 
-      const newRotation = startRotation + angleDelta;
+      const direction = this.clockwise ? 1 : -1;
+      const newRotation = this.currentRotation + angleDelta * direction;
+
       this.setRotation(newRotation);
+      this.lastAngle = currentAngle;
     };
 
     const endDrag = () => {
       isDragging = false;
       this.dial.style.cursor = "grab";
+      this.lastAngle = null;
     };
 
     this.dial.addEventListener("mousedown", (e) => {
@@ -126,7 +136,9 @@ class VolumeDial {
       if (up || down) {
         e.preventDefault();
         const step = this.angleSpan / this.ticks;
-        let newRotation = this.currentRotation + (up ? step : -step);
+        const direction = this.clockwise ? 1 : -1;
+        let newRotation =
+          this.currentRotation + (up ? step : -step) * direction;
         this.setRotation(newRotation);
       }
     });
@@ -136,14 +148,17 @@ class VolumeDial {
 document.addEventListener("DOMContentLoaded", () => {
   new VolumeDial(document.getElementById("dial1"), {
     color: "blue",
-    volume: 0.5,
+    volume: 0,
+    clockwise: false,
   });
+
   new VolumeDial(document.getElementById("dial2"), {
     color: "green",
-    volume: 0.25,
+    volume: 0,
   });
+
   new VolumeDial(document.getElementById("dial3"), {
     color: "red",
-    volume: 0.75,
+    volume: 0,
   });
 });
