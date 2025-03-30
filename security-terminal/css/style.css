@@ -136,6 +136,7 @@ main {
     )
     border-box;
   -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: destination-out;
   mask-composite: exclude;
   pointer-events: none;
@@ -273,7 +274,7 @@ main {
   height: min(500px, 80vh);
   padding: 30px;
   border-radius: 20px;
-  background: var(--glass-bg);
+  background: rgba(5, 6, 45, 0.8);
   backdrop-filter: blur(10px);
   border: 1px solid var(--glass-border);
   box-shadow: 0 15px 35px var(--neu-shadow-dark),
@@ -283,46 +284,73 @@ main {
   transform-style: preserve-3d;
 }
 
+.log-container::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 22px;
+  border: 2px solid transparent;
+  background: linear-gradient(
+      135deg,
+      rgba(0, 234, 255, 0.8),
+      rgba(139, 0, 255, 0.6)
+    )
+    border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.log-container:hover::before {
+  opacity: 1;
+  animation: pulse 2.5s infinite ease-in-out;
+}
+
 .log-header {
   margin-bottom: 20px;
   padding-bottom: 15px;
-  border-bottom: 1px solid rgba(0, 255, 213, 0.3);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  border-bottom: 2px solid rgba(0, 234, 255, 0.3);
+  position: relative;
 }
 
 .log-header h2 {
   font-size: 1.8rem;
   letter-spacing: 2px;
-  background: linear-gradient(90deg, var(--primary-color), #1ef3ff);
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #00eaff, #ff00cc);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: pulse 3s infinite alternate;
+  text-shadow: 0 0 5px rgba(0, 234, 255, 0.3), 0 0 10px rgba(255, 0, 204, 0.2);
+  animation: textGlitch 2s infinite alternate;
 }
 
 .attempts-counter {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: var(--font-mono);
-  font-size: 1.2rem;
+  padding: 8px 15px;
+  background: rgba(10, 12, 45, 0.6);
+  border-radius: 5px;
+  border: 1px solid rgba(0, 234, 255, 0.2);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3), 0 0 5px rgba(0, 234, 255, 0.2);
 }
 
 .attempts-number {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: var(--primary-color);
-  text-shadow: 0 0 10px var(--primary-color);
-  animation: pulsate 2s infinite alternate;
+  color: #00eaff;
+  text-shadow: 0 0 10px #00eaff;
+  animation: pulse 1.5s infinite;
 }
 
 .log-content {
   flex: 1;
   overflow-y: auto;
   padding: 15px;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.4);
   border-radius: 10px;
   font-family: var(--font-mono);
   position: relative;
@@ -345,14 +373,12 @@ main {
 }
 
 .log-placeholder {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: rgba(255, 255, 255, 0.6);
-  position: relative;
-  overflow: hidden;
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    rgba(0, 234, 255, 0.05) 50%,
+    transparent 60%
+  );
 }
 
 .log-placeholder p {
@@ -673,12 +699,22 @@ main {
   }
 }
 
+@keyframes textGlitch {
+  0%,
+  100% {
+    text-shadow: 2px 2px 0 #00eaff, -2px -2px 0 #ff00cc;
+  }
+  50% {
+    text-shadow: -2px -2px 0 #00eaff, 2px 2px 0 #ff00cc;
+  }
+}
+
 @keyframes scan {
   0% {
     transform: translateX(-100%);
   }
   100% {
-    transform: translateX(100%);
+    transform: translateX(200%);
   }
 }
 
