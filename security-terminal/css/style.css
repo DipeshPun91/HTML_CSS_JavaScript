@@ -53,34 +53,36 @@ header {
   font-weight: 900;
   letter-spacing: 3px;
   position: relative;
-  animation: textShadow 1.6s infinite;
-  text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color),
-    0 0 30px var(--primary-color);
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 2px 2px 0 #fded00, -2px -2px 0 #00eaff;
+  margin: 0;
 }
 
 .glitch-title::before,
 .glitch-title::after {
   content: "ERROR: ACCESS DENIED";
   position: absolute;
-  width: 100%;
-  height: 100%;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
   opacity: 0.8;
 }
 
 .glitch-title::before {
-  color: var(--secondary-color);
-  animation: glitch 2s infinite;
+  color: #00e572;
+  text-shadow: 2px 2px 0 #00e572, -2px -2px 0 #8b00ff;
   clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-  transform: translate(-2px, -2px);
+  animation: glitch 2.5s infinite linear alternate;
 }
 
 .glitch-title::after {
-  color: var(--tertiary-color);
-  animation: glitch 2s infinite;
+  color: #ff3366;
+  text-shadow: -2px -2px 0 #ff3366, 2px 2px 0 #00ccff;
   clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
-  transform: translate(2px, 2px);
+  animation: glitch 2.5s infinite linear alternate-reverse;
+  animation-delay: 0.5s;
 }
 
 main {
