@@ -111,43 +111,55 @@ main {
   width: min(380px, 90%);
   padding: 30px;
   border-radius: 20px;
-  background: var(--glass-bg);
+  background: rgba(5, 6, 45, 0.8);
   backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 15px 35px var(--neu-shadow-dark),
-    inset 0 1px 1px var(--neu-shadow-light), 0 0 20px rgba(0, 255, 213, 0.2);
-  transform-style: preserve-3d;
+  border: 2px solid rgba(0, 234, 255, 0.3);
+  box-shadow: 0 0 15px rgba(0, 234, 255, 0.2), 0 0 30px rgba(151, 65, 252, 0.15);
   position: relative;
   overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .keypad-container::before {
   content: "";
   position: absolute;
-  top: -100px;
-  left: -100px;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(
-    circle,
-    rgba(0, 255, 213, 0.1) 0%,
-    transparent 70%
-  );
-  opacity: 0.5;
-  animation: moveGlow 15s infinite alternate;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 22px;
+  border: 2px solid transparent;
+  background: linear-gradient(
+      135deg,
+      rgba(0, 234, 255, 0.8),
+      rgba(139, 0, 255, 0.6)
+    )
+    border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.keypad-container:hover::before {
+  opacity: 1;
+  animation: pulse 2.5s infinite ease-in-out;
 }
 
 .pin-display {
   margin-bottom: 30px;
   height: 60px;
-  background: rgba(10, 12, 18, 0.8);
+  background: rgba(10, 12, 45, 0.6);
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5),
-    0 1px 1px rgba(255, 255, 255, 0.05);
+    0 0 10px rgba(0, 234, 255, 0.3);
   position: relative;
+  border: 1px solid rgba(0, 234, 255, 0.2);
 }
 
 .pin-dots {
@@ -161,13 +173,13 @@ main {
   height: 15px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5), 0 0 5px rgba(0, 234, 255, 0.3);
   transition: all 0.3s ease;
 }
 
 .pin-dot.active {
-  background: var(--primary-color);
-  box-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color);
+  background: #00eaff;
+  box-shadow: 0 0 10px #00eaff, 0 0 20px #00eaff;
   animation: pulseDot 1.5s infinite;
 }
 
@@ -184,11 +196,11 @@ main {
   font-family: var(--font-main);
   font-size: 1.8rem;
   font-weight: bold;
-  color: var(--primary-color);
-  background: linear-gradient(145deg, #15152a, #1a1a33);
+  color: #00eaff;
+  background: linear-gradient(145deg, #05062d, #0a093a);
   border: none;
-  box-shadow: 5px 5px 10px var(--neu-shadow-dark),
-    -5px -5px 10px var(--neu-shadow-light);
+  box-shadow: 0 0 5px rgba(0, 234, 255, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
   position: relative;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.2, 0.85, 0.45, 1);
@@ -196,27 +208,27 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-shadow: 0 0 5px rgba(0, 234, 255, 0.5);
 }
 
 .key::before {
   content: "";
   position: absolute;
-  top: -10px;
-  left: -10px;
-  width: calc(100% + 20px);
-  height: calc(100% + 20px);
-  background: radial-gradient(
-    circle at 50% 50%,
-    rgba(0, 255, 213, 0.2),
-    transparent 70%
-  );
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0, 234, 255, 0.2), transparent 70%);
   opacity: 0;
   transition: opacity 0.3s ease;
-  pointer-events: none;
 }
 
 .key:hover {
   transform: translateY(-2px);
+  box-shadow: 0 0 10px rgba(0, 234, 255, 0.7),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0, 234, 255, 0.8);
 }
 
 .key:hover::before {
@@ -225,25 +237,31 @@ main {
 
 .key:active {
   transform: translateY(2px);
-  box-shadow: 3px 3px 6px var(--neu-shadow-dark),
-    -3px -3px 6px var(--neu-shadow-light), 0 0 15px rgba(0, 255, 213, 0.3);
-  background: linear-gradient(145deg, #14142a, #191932);
+  box-shadow: 0 0 15px rgba(0, 234, 255, 0.9),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  background: linear-gradient(145deg, #04052a, #090836);
 }
 
 .key-delete {
   font-size: 1.2rem;
-  color: var(--secondary-color);
+  color: #ff3366;
+  text-shadow: 0 0 5px rgba(255, 51, 102, 0.5);
 }
 
 .key-unlock {
   font-size: 1.2rem;
-  color: #0f0;
+  color: #00e572;
+  text-shadow: 0 0 5px rgba(0, 229, 114, 0.5);
 }
 
-.key-delete:active,
-.key-unlock:active {
-  box-shadow: 3px 3px 6px var(--neu-shadow-dark),
-    -3px -3px 6px var(--neu-shadow-light), 0 0 15px rgba(255, 0, 89, 0.3);
+.key-delete:hover {
+  color: #ff5c8d;
+  text-shadow: 0 0 10px rgba(255, 92, 141, 0.8);
+}
+
+.key-unlock:hover {
+  color: #0f0;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
 }
 
 .key.clicked {
@@ -485,88 +503,6 @@ main {
   animation: pulseGlow 8s ease-in-out infinite alternate;
 }
 
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
-}
-
-@keyframes pulsate {
-  0% {
-    text-shadow: 0 0 5px var(--primary-color);
-  }
-  100% {
-    text-shadow: 0 0 20px var(--primary-color), 0 0 30px var(--primary-color);
-  }
-}
-
-@keyframes pulseDot {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.6;
-    transform: scale(0.8);
-  }
-}
-
-@keyframes scanLine {
-  0% {
-    top: 0;
-  }
-  100% {
-    top: 100%;
-  }
-}
-
-@keyframes scan {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes keyPress {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(0.95);
-    background: linear-gradient(145deg, #1a1a33, #15152a);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
 @keyframes glitch {
   0% {
     clip-path: polygon(
@@ -680,6 +616,89 @@ main {
       0 70%
     );
     transform: translate(0, 0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes pulseDot {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes keyPress {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+    box-shadow: 0 0 20px rgba(0, 234, 255, 0.9),
+      inset 0 2px 2px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes pulsate {
+  0% {
+    text-shadow: 0 0 5px var(--primary-color);
+  }
+  100% {
+    text-shadow: 0 0 20px var(--primary-color), 0 0 30px var(--primary-color);
+  }
+}
+
+@keyframes scanLine {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
