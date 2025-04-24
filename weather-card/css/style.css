@@ -11,11 +11,42 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  padding: 20px;
 }
 
 .weather-app {
   width: 100%;
   max-width: 400px;
+}
+
+.search-container {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 8px 0 0 8px;
+  font-size: 16px;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-btn {
+  padding: 0 20px;
+  background: #4a89dc;
+  color: white;
+  border: none;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.search-btn:hover {
+  background: #3b7dd8;
 }
 
 .weather-card {
@@ -44,6 +75,8 @@ body {
 
 .clouds {
   position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 .cloud {
@@ -72,6 +105,7 @@ body {
   width: 2px;
   height: 10px;
   border-radius: 0 0 5px 5px;
+  animation: rainFall linear infinite;
 }
 
 .snow {
@@ -84,6 +118,7 @@ body {
   position: absolute;
   background: white;
   border-radius: 50%;
+  animation: snowFall linear infinite;
 }
 
 .lightning {
@@ -122,6 +157,7 @@ body {
   font-size: 20px;
   color: #666;
   margin-bottom: 5px;
+  text-transform: capitalize;
 }
 
 .location {
@@ -135,28 +171,44 @@ body {
   color: #aaa;
 }
 
-.weather-controls {
+.details {
   display: flex;
   justify-content: space-around;
-  padding: 15px;
-  background: #f8f9fa;
+  margin-top: 20px;
+  padding: 15px 0;
+  border-top: 1px solid #eee;
 }
 
-.weather-btn {
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: #aaa;
-  cursor: pointer;
-  padding: 10px;
-  transition: all 0.3s;
+.detail-item {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #666;
 }
 
-.weather-btn.active {
-  color: #4a89dc;
-  transform: scale(1.2);
+.detail-item i {
+  margin-right: 5px;
+  font-size: 20px;
 }
 
-.weather-btn:hover {
-  color: #4a89dc;
+@keyframes rainFall {
+  0% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(200px);
+    opacity: 0;
+  }
+}
+
+@keyframes snowFall {
+  0% {
+    transform: translateY(-10px) translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(200px) translateX(20px);
+    opacity: 0;
+  }
 }
