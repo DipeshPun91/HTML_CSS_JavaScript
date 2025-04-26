@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather App</title>
+    <title>Weather Card</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.min.css"
@@ -12,12 +12,9 @@
   </head>
   <body>
     <div class="weather-app">
-      <div class="search-container">
-        <input type="text" class="search-input" placeholder="Enter city name" />
-        <button class="search-btn">Search</button>
-      </div>
       <div class="weather-card">
         <div class="weather-icon">
+          <div class="cloud-main"></div>
           <div class="sun"></div>
           <div class="clouds"></div>
           <div class="rain"></div>
@@ -25,19 +22,27 @@
           <div class="lightning"></div>
         </div>
         <div class="weather-info">
-          <div class="temperature">--°C</div>
-          <div class="description">--</div>
-          <div class="location">--</div>
-          <div class="date">--</div>
-          <div class="details">
-            <div class="detail-item">
-              <i class="wi wi-humidity"></i> <span class="humidity">--%</span>
-            </div>
-            <div class="detail-item">
-              <i class="wi wi-strong-wind"></i>
-              <span class="wind">-- km/h</span>
-            </div>
-          </div>
+          <div class="temperature">24°C</div>
+          <div class="description">Sunny</div>
+          <div class="location">New York, NY</div>
+          <div class="date">Monday, June 10</div>
+        </div>
+        <div class="weather-controls">
+          <button class="weather-btn active" data-weather="sun">
+            <i class="wi wi-day-sunny"></i>
+          </button>
+          <button class="weather-btn" data-weather="rain">
+            <i class="wi wi-rain"></i>
+          </button>
+          <button class="weather-btn" data-weather="cloud">
+            <i class="wi wi-cloudy"></i>
+          </button>
+          <button class="weather-btn" data-weather="thunder">
+            <i class="wi wi-thunderstorm"></i>
+          </button>
+          <button class="weather-btn" data-weather="snow">
+            <i class="wi wi-snow"></i>
+          </button>
         </div>
       </div>
     </div>

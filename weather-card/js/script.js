@@ -9,32 +9,78 @@ document.addEventListener("DOMContentLoaded", function () {
   const rainContainer = document.querySelector(".rain");
   const snowContainer = document.querySelector(".snow");
   const lightningContainer = document.querySelector(".lightning");
+  const weatherIcon = document.querySelector(".weather-icon");
+
+  let lightningInterval;
 
   const weatherData = {
     sun: {
       temp: "24°C",
       desc: "Sunny",
-      color: "#FFD700",
+      color: "linear-gradient(135deg, #ffd700 0%, #87ceeb 100%)",
+      elements: () => {
+        sun.style.display = "block";
+        cloudsContainer.style.display = "none";
+        rainContainer.style.display = "none";
+        snowContainer.style.display = "none";
+        lightningContainer.style.display = "none";
+      },
     },
     rain: {
       temp: "18°C",
       desc: "Rainy",
-      color: "#a1c6ea",
+      color: "linear-gradient(135deg, #616161 0%, #3498db 100%)",
+      elements: () => {
+        sun.style.display = "none";
+        createClouds();
+        createRain();
+        cloudsContainer.style.display = "block";
+        rainContainer.style.display = "block";
+        snowContainer.style.display = "none";
+        lightningContainer.style.display = "none";
+      },
     },
     cloud: {
       temp: "20°C",
       desc: "Cloudy",
-      color: "#b0bec5",
+      color: "linear-gradient(135deg, #b0bec5 0%, #dfebee 100%)",
+      elements: () => {
+        sun.style.display = "none";
+        createClouds();
+        cloudsContainer.style.display = "block";
+        rainContainer.style.display = "none";
+        snowContainer.style.display = "none";
+        lightningContainer.style.display = "none";
+      },
     },
     thunder: {
       temp: "22°C",
-      desc: "Thunderstorm",
-      color: "#757575",
+      desc: "Stormy",
+      color: "linear-gradient(135deg, #2c3e50 0%, #3498db 100%)",
+      elements: () => {
+        sun.style.display = "none";
+        createClouds();
+        createLightning();
+        cloudsContainer.style.display = "block";
+        rainContainer.style.display = "none";
+        snowContainer.style.display = "none";
+        lightningContainer.style.display = "block";
+        animateLightning();
+      },
     },
     snow: {
       temp: "-2°C",
       desc: "Snowy",
-      color: "#e0f7fa",
+      color: "linear-gradient(135deg, #bbdefb 0%, #e1f5fe 100%)",
+      elements: () => {
+        sun.style.display = "none";
+        createClouds();
+        createSnow();
+        cloudsContainer.style.display = "block";
+        rainContainer.style.display = "none";
+        snowContainer.style.display = "block";
+        lightningContainer.style.display = "none";
+      },
     },
   };
 
@@ -58,9 +104,6 @@ document.addEventListener("DOMContentLoaded", function () {
       cloud.style.height = `${20 + Math.random() * 20}px`;
       cloud.style.top = `${30 + Math.random() * 100}px`;
       cloud.style.left = `${Math.random() * 300}px`;
-
-      cloud.style.setProperty("--size", `${20 + Math.random() * 20}px`);
-
       cloudsContainer.appendChild(cloud);
     }
   }
@@ -109,6 +152,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function animateLightning() {
+    if (lightningInterval) {
+      clearInterval(lightningInterval);
+    }
+
     const bolts = document.querySelectorAll(".bolt");
     bolts.forEach((bolt) => {
       setTimeout(() => {
@@ -118,6 +165,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 100);
       }, Math.random() * 3000);
     });
+
+    lightningInterval = setInterval(() => {
+      bolts.forEach((bolt) => {
+        setTimeout(() => {
+          bolt.style.opacity = 0.8;
+          setTimeout(() => {
+            bolt.style.opacity = 0;
+          }, 100);
+        }, Math.random() * 1000);
+      });
+    }, 3000);
   }
 
   function setWeather(weatherType) {
@@ -129,17 +187,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const weather = weatherData[weatherType];
     temperature.textContent = weather.temp;
     description.textContent = weather.desc;
+    weatherIcon.style.background = weather.color;
 
-    sun.style.display = weatherType === "sun" ? "block" : "none";
-    rainContainer.style.display = weatherType === "rain" ? "block" : "none";
-    snowContainer.style.display = weatherType === "snow" ? "block" : "none";
-    lightningContainer.style.display =
-      weatherType === "thunder" ? "block" : "none";
+    weather.elements();
 
-    if (weatherType === "thunder") {
-      animateLightning();
-      setInterval(animateLightning, 3000);
-    }
+    weatherCard.style.animation = "none";
+    setTimeout(() => {
+      weatherCard.style.animation = "cardTransition 0.5s ease";
+    }, 10);
   }
 
   weatherBtns.forEach((btn) => {
@@ -149,10 +204,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  setDate();
-  createClouds();
-  createRain();
-  createSnow();
-  createLightning();
-  setWeather("sun");
+  setTimeout(() => {
+    setDate();
+    setWeather("sun");
+  }, 100);
 });
