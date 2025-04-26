@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const snowContainer = document.querySelector(".snow");
   const lightningContainer = document.querySelector(".lightning");
   const weatherIcon = document.querySelector(".weather-icon");
-  const cloudMain = document.querySelector(".cloud-main");
 
   let lightningInterval;
 
@@ -18,10 +17,9 @@ document.addEventListener("DOMContentLoaded", function () {
     sun: {
       temp: "24°C",
       desc: "Sunny",
-      color: "linear-gradient(135deg, #ffd700 0%, #87ceeb 100%)",
+      color: "linear-gradient(to bottom, #87ceeb 0%, #e0f7fa 100%)",
       elements: () => {
         sun.style.display = "block";
-        cloudMain.style.opacity = "0";
         cloudsContainer.style.display = "none";
         rainContainer.style.display = "none";
         snowContainer.style.display = "none";
@@ -31,10 +29,9 @@ document.addEventListener("DOMContentLoaded", function () {
     rain: {
       temp: "18°C",
       desc: "Rainy",
-      color: "linear-gradient(135deg, #616161 0%, #3498db 100%)",
+      color: "linear-gradient(to bottom, #616161 0%, #9bc5c3 100%)",
       elements: () => {
         sun.style.display = "none";
-        cloudMain.style.opacity = "0.9";
         createClouds();
         createRain();
         cloudsContainer.style.display = "block";
@@ -46,10 +43,9 @@ document.addEventListener("DOMContentLoaded", function () {
     cloud: {
       temp: "20°C",
       desc: "Cloudy",
-      color: "linear-gradient(135deg, #b0bec5 0%, #dfebee 100%)",
+      color: "linear-gradient(to bottom, #b0bec5 0%, #dfebee 100%)",
       elements: () => {
         sun.style.display = "none";
-        cloudMain.style.opacity = "0.9";
         createClouds();
         cloudsContainer.style.display = "block";
         rainContainer.style.display = "none";
@@ -59,11 +55,10 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     thunder: {
       temp: "22°C",
-      desc: "Stormy",
-      color: "linear-gradient(135deg, #2c3e50 0%, #3498db 100%)",
+      desc: "Thunderstorm",
+      color: "linear-gradient(to bottom, #424242 0%, #757575 100%)",
       elements: () => {
         sun.style.display = "none";
-        cloudMain.style.opacity = "0.7";
         createClouds();
         createLightning();
         cloudsContainer.style.display = "block";
@@ -76,10 +71,9 @@ document.addEventListener("DOMContentLoaded", function () {
     snow: {
       temp: "-2°C",
       desc: "Snowy",
-      color: "linear-gradient(135deg, #bbdefb 0%, #e1f5fe 100%)",
+      color: "linear-gradient(to bottom, #bbdefb 0%, #e1f5fe 100%)",
       elements: () => {
         sun.style.display = "none";
-        cloudMain.style.opacity = "0.9";
         createClouds();
         createSnow();
         cloudsContainer.style.display = "block";
@@ -106,10 +100,11 @@ document.addEventListener("DOMContentLoaded", function () {
     for (let i = 0; i < 3; i++) {
       const cloud = document.createElement("div");
       cloud.className = "cloud";
-      cloud.style.width = `${60 + Math.random() * 40}px`;
-      cloud.style.height = `${20 + Math.random() * 20}px`;
+      cloud.style.width = `${80 + Math.random() * 40}px`;
+      cloud.style.height = `${40 + Math.random() * 20}px`;
       cloud.style.top = `${30 + Math.random() * 100}px`;
       cloud.style.left = `${Math.random() * 300}px`;
+      cloud.style.opacity = `${0.7 + Math.random() * 0.3}`;
       cloudsContainer.appendChild(cloud);
     }
   }
