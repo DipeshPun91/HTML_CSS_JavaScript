@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const snowContainer = document.querySelector(".snow");
   const lightningContainer = document.querySelector(".lightning");
   const weatherIcon = document.querySelector(".weather-icon");
+  const cloudMain = document.querySelector(".cloud-main");
 
   let lightningInterval;
 
@@ -20,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
       color: "linear-gradient(135deg, #ffd700 0%, #87ceeb 100%)",
       elements: () => {
         sun.style.display = "block";
+        cloudMain.style.opacity = "0";
         cloudsContainer.style.display = "none";
         rainContainer.style.display = "none";
         snowContainer.style.display = "none";
@@ -32,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
       color: "linear-gradient(135deg, #616161 0%, #3498db 100%)",
       elements: () => {
         sun.style.display = "none";
+        cloudMain.style.opacity = "0.9";
         createClouds();
         createRain();
         cloudsContainer.style.display = "block";
@@ -46,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
       color: "linear-gradient(135deg, #b0bec5 0%, #dfebee 100%)",
       elements: () => {
         sun.style.display = "none";
+        cloudMain.style.opacity = "0.9";
         createClouds();
         cloudsContainer.style.display = "block";
         rainContainer.style.display = "none";
@@ -59,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
       color: "linear-gradient(135deg, #2c3e50 0%, #3498db 100%)",
       elements: () => {
         sun.style.display = "none";
+        cloudMain.style.opacity = "0.7";
         createClouds();
         createLightning();
         cloudsContainer.style.display = "block";
@@ -74,6 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
       color: "linear-gradient(135deg, #bbdefb 0%, #e1f5fe 100%)",
       elements: () => {
         sun.style.display = "none";
+        cloudMain.style.opacity = "0.9";
         createClouds();
         createSnow();
         cloudsContainer.style.display = "block";
