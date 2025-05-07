@@ -76,7 +76,6 @@
   }
 
   article {
-    /*     outline: 2px dashed canvasText; */
     width: calc(var(--article-width) * 1px);
     height: 100%;
     position: absolute;
@@ -147,8 +146,7 @@
       mask: radial-gradient(100% 100% at 100% 0, #fff, #0000);
     }
   }
-  /* gotta use some Math on the container really */
-  /* width is "ideal" 7 * 80px + 6 * gap + say 300px or whatever the ideal width is */
+
   :root {
     --gap: 8px;
     --base: clamp(2rem, 8cqi, 80px);
@@ -192,7 +190,6 @@
   }
 
   li {
-    /* outline: 4px dashed canvasText; */
     background: light-dark(#fff, #000);
     position: relative;
     overflow: hidden;
@@ -301,7 +298,6 @@
     width: 75%;
   }
 
-  /* Utilities */
   .sr-only {
     position: absolute;
     width: 1px;
