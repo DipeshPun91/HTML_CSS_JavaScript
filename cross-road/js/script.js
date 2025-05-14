@@ -1,17 +1,3 @@
-/*
-
-Learn how to code this watch step by step on YouTube:
-
-https://youtu.be/vNr3_hQ3Bws
-
-or on:
-
-https://javascriptgametutorials.com/
-
-*/
-
-import * as THREE from "https://esm.sh/three";
-
 const minTileIndex = -8;
 const maxTileIndex = 8;
 const tilesPerRow = maxTileIndex - minTileIndex + 1;
