@@ -1,8 +1,48 @@
+// Game constants
 const minTileIndex = -8;
 const maxTileIndex = 8;
 const tilesPerRow = maxTileIndex - minTileIndex + 1;
 const tileSize = 42;
 
+// Game state
+const metadata = [];
+const movesQueue = [];
+const position = {
+  currentRow: 0,
+  currentTile: 0,
+};
+
+// Texture functions
+function Texture(width, height, rects) {
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const context = canvas.getContext("2d");
+  context.fillStyle = "#ffffff";
+  context.fillRect(0, 0, width, height);
+  context.fillStyle = "rgba(0,0,0,0.6)";
+  rects.forEach((rect) => {
+    context.fillRect(rect.x, rect.y, rect.w, rect.h);
+  });
+  return new THREE.CanvasTexture(canvas);
+}
+
+const carFrontTexture = Texture(40, 80, [{ x: 0, y: 10, w: 30, h: 60 }]);
+const carBackTexture = Texture(40, 80, [{ x: 10, y: 10, w: 30, h: 60 }]);
+const carRightSideTexture = Texture(110, 40, [
+  { x: 10, y: 0, w: 50, h: 30 },
+  { x: 70, y: 0, w: 30, h: 30 },
+]);
+const carLeftSideTexture = Texture(110, 40, [
+  { x: 10, y: 10, w: 50, h: 30 },
+  { x: 70, y: 10, w: 30, h: 30 },
+]);
+
+const truckFrontTexture = Texture(30, 30, [{ x: 5, y: 0, w: 10, h: 30 }]);
+const truckRightSideTexture = Texture(25, 30, [{ x: 15, y: 5, w: 10, h: 10 }]);
+const truckLeftSideTexture = Texture(25, 30, [{ x: 15, y: 15, w: 10, h: 10 }]);
+
+// Game objects
 function Camera() {
   const size = 300;
   const viewRatio = window.innerWidth / window.innerHeight;
@@ -25,40 +65,38 @@ function Camera() {
   return camera;
 }
 
-function Texture(width, height, rects) {
-  const canvas = document.createElement("canvas");
-  canvas.width = width;
-  canvas.height = height;
-  const context = canvas.getContext("2d");
-  context.fillStyle = "#ffffff";
-  context.fillRect(0, 0, width, height);
-  context.fillStyle = "rgba(0,0,0,0.6)";
-  rects.forEach((rect) => {
-    context.fillRect(rect.x, rect.y, rect.w, rect.h);
-  });
-  return new THREE.CanvasTexture(canvas);
+function DirectionalLight() {
+  const dirLight = new THREE.DirectionalLight();
+  dirLight.position.set(-100, -100, 200);
+  dirLight.up.set(0, 0, 1);
+  dirLight.castShadow = true;
+
+  dirLight.shadow.mapSize.width = 2048;
+  dirLight.shadow.mapSize.height = 2048;
+
+  dirLight.shadow.camera.up.set(0, 0, 1);
+  dirLight.shadow.camera.left = -400;
+  dirLight.shadow.camera.right = 400;
+  dirLight.shadow.camera.top = 400;
+  dirLight.shadow.camera.bottom = -400;
+  dirLight.shadow.camera.near = 50;
+  dirLight.shadow.camera.far = 400;
+
+  return dirLight;
 }
 
-const carFrontTexture = new Texture(40, 80, [{ x: 0, y: 10, w: 30, h: 60 }]);
-const carBackTexture = new Texture(40, 80, [{ x: 10, y: 10, w: 30, h: 60 }]);
-const carRightSideTexture = new Texture(110, 40, [
-  { x: 10, y: 0, w: 50, h: 30 },
-  { x: 70, y: 0, w: 30, h: 30 },
-]);
-const carLeftSideTexture = new Texture(110, 40, [
-  { x: 10, y: 10, w: 50, h: 30 },
-  { x: 70, y: 10, w: 30, h: 30 },
-]);
-
-export const truckFrontTexture = Texture(30, 30, [
-  { x: 5, y: 0, w: 10, h: 30 },
-]);
-export const truckRightSideTexture = Texture(25, 30, [
-  { x: 15, y: 5, w: 10, h: 10 },
-]);
-export const truckLeftSideTexture = Texture(25, 30, [
-  { x: 15, y: 15, w: 10, h: 10 },
-]);
+function Wheel(x) {
+  const wheel = new THREE.Mesh(
+    new THREE.BoxGeometry(12, 33, 12),
+    new THREE.MeshLambertMaterial({
+      color: 0x333333,
+      flatShading: true,
+    })
+  );
+  wheel.position.x = x;
+  wheel.position.z = 6;
+  return wheel;
+}
 
 function Car(initialTileIndex, direction, color) {
   const car = new THREE.Group();
@@ -113,24 +151,93 @@ function Car(initialTileIndex, direction, color) {
   return car;
 }
 
-function DirectionalLight() {
-  const dirLight = new THREE.DirectionalLight();
-  dirLight.position.set(-100, -100, 200);
-  dirLight.up.set(0, 0, 1);
-  dirLight.castShadow = true;
+function Truck(initialTileIndex, direction, color) {
+  const truck = new THREE.Group();
+  truck.position.x = initialTileIndex * tileSize;
+  if (!direction) truck.rotation.z = Math.PI;
 
-  dirLight.shadow.mapSize.width = 2048;
-  dirLight.shadow.mapSize.height = 2048;
+  const cargo = new THREE.Mesh(
+    new THREE.BoxGeometry(70, 35, 35),
+    new THREE.MeshLambertMaterial({
+      color: 0xb4c6fc,
+      flatShading: true,
+    })
+  );
+  cargo.position.x = -15;
+  cargo.position.z = 25;
+  cargo.castShadow = true;
+  cargo.receiveShadow = true;
+  truck.add(cargo);
 
-  dirLight.shadow.camera.up.set(0, 0, 1);
-  dirLight.shadow.camera.left = -400;
-  dirLight.shadow.camera.right = 400;
-  dirLight.shadow.camera.top = 400;
-  dirLight.shadow.camera.bottom = -400;
-  dirLight.shadow.camera.near = 50;
-  dirLight.shadow.camera.far = 400;
+  const cabin = new THREE.Mesh(new THREE.BoxGeometry(30, 30, 30), [
+    new THREE.MeshLambertMaterial({
+      color,
+      flatShading: true,
+      map: truckFrontTexture,
+    }), // front
+    new THREE.MeshLambertMaterial({
+      color,
+      flatShading: true,
+    }), // back
+    new THREE.MeshLambertMaterial({
+      color,
+      flatShading: true,
+      map: truckLeftSideTexture,
+    }),
+    new THREE.MeshLambertMaterial({
+      color,
+      flatShading: true,
+      map: truckRightSideTexture,
+    }),
+    new THREE.MeshPhongMaterial({ color, flatShading: true }), // top
+    new THREE.MeshPhongMaterial({ color, flatShading: true }), // bottom
+  ]);
+  cabin.position.x = 35;
+  cabin.position.z = 20;
+  cabin.castShadow = true;
+  cabin.receiveShadow = true;
 
-  return dirLight;
+  truck.add(cabin);
+
+  const frontWheel = Wheel(37);
+  truck.add(frontWheel);
+
+  const middleWheel = Wheel(5);
+  truck.add(middleWheel);
+
+  const backWheel = Wheel(-35);
+  truck.add(backWheel);
+
+  return truck;
+}
+
+function Tree(tileIndex, height) {
+  const tree = new THREE.Group();
+  tree.position.x = tileIndex * tileSize;
+
+  const trunk = new THREE.Mesh(
+    new THREE.BoxGeometry(15, 15, 20),
+    new THREE.MeshLambertMaterial({
+      color: 0x4d2926,
+      flatShading: true,
+    })
+  );
+  trunk.position.z = 10;
+  tree.add(trunk);
+
+  const crown = new THREE.Mesh(
+    new THREE.BoxGeometry(30, 30, height),
+    new THREE.MeshLambertMaterial({
+      color: 0x7aa21d,
+      flatShading: true,
+    })
+  );
+  crown.position.z = height / 2 + 20;
+  crown.castShadow = true;
+  crown.receiveShadow = true;
+  tree.add(crown);
+
+  return tree;
 }
 
 function Grass(rowIndex) {
@@ -158,7 +265,149 @@ function Grass(rowIndex) {
   return grass;
 }
 
-const metadata = [];
+function Road(rowIndex) {
+  const road = new THREE.Group();
+  road.position.y = rowIndex * tileSize;
+
+  const createSection = (color) =>
+    new THREE.Mesh(
+      new THREE.PlaneGeometry(tilesPerRow * tileSize, tileSize),
+      new THREE.MeshLambertMaterial({ color })
+    );
+
+  const middle = createSection(0x454a59);
+  middle.receiveShadow = true;
+  road.add(middle);
+
+  const left = createSection(0x393d49);
+  left.position.x = -tilesPerRow * tileSize;
+  road.add(left);
+
+  const right = createSection(0x393d49);
+  right.position.x = tilesPerRow * tileSize;
+  road.add(right);
+
+  return road;
+}
+
+function Player() {
+  const player = new THREE.Group();
+
+  const body = new THREE.Mesh(
+    new THREE.BoxGeometry(15, 15, 20),
+    new THREE.MeshLambertMaterial({
+      color: "white",
+      flatShading: true,
+    })
+  );
+  body.position.z = 10;
+  body.castShadow = true;
+  body.receiveShadow = true;
+  player.add(body);
+
+  const cap = new THREE.Mesh(
+    new THREE.BoxGeometry(2, 4, 2),
+    new THREE.MeshLambertMaterial({
+      color: 0xf0619a,
+      flatShading: true,
+    })
+  );
+  cap.position.z = 21;
+  cap.castShadow = true;
+  cap.receiveShadow = true;
+  player.add(cap);
+
+  const playerContainer = new THREE.Group();
+  playerContainer.add(player);
+
+  return playerContainer;
+}
+
+// Game logic
+function randomElement(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
+function generateForesMetadata() {
+  const occupiedTiles = new Set();
+  const trees = Array.from({ length: 4 }, () => {
+    let tileIndex;
+    do {
+      tileIndex = THREE.MathUtils.randInt(minTileIndex, maxTileIndex);
+    } while (occupiedTiles.has(tileIndex));
+    occupiedTiles.add(tileIndex);
+
+    const height = randomElement([20, 45, 60]);
+
+    return { tileIndex, height };
+  });
+
+  return { type: "forest", trees };
+}
+
+function generateCarLaneMetadata() {
+  const direction = randomElement([true, false]);
+  const speed = randomElement([125, 156, 188]);
+
+  const occupiedTiles = new Set();
+
+  const vehicles = Array.from({ length: 3 }, () => {
+    let initialTileIndex;
+    do {
+      initialTileIndex = THREE.MathUtils.randInt(minTileIndex, maxTileIndex);
+    } while (occupiedTiles.has(initialTileIndex));
+    occupiedTiles.add(initialTileIndex - 1);
+    occupiedTiles.add(initialTileIndex);
+    occupiedTiles.add(initialTileIndex + 1);
+
+    const color = randomElement([0xa52523, 0xbdb638, 0x78b14b]);
+
+    return { initialTileIndex, color };
+  });
+
+  return { type: "car", direction, speed, vehicles };
+}
+
+function generateTruckLaneMetadata() {
+  const direction = randomElement([true, false]);
+  const speed = randomElement([125, 156, 188]);
+
+  const occupiedTiles = new Set();
+
+  const vehicles = Array.from({ length: 2 }, () => {
+    let initialTileIndex;
+    do {
+      initialTileIndex = THREE.MathUtils.randInt(minTileIndex, maxTileIndex);
+    } while (occupiedTiles.has(initialTileIndex));
+    occupiedTiles.add(initialTileIndex - 2);
+    occupiedTiles.add(initialTileIndex - 1);
+    occupiedTiles.add(initialTileIndex);
+    occupiedTiles.add(initialTileIndex + 1);
+    occupiedTiles.add(initialTileIndex + 2);
+
+    const color = randomElement([0xa52523, 0xbdb638, 0x78b14b]);
+
+    return { initialTileIndex, color };
+  });
+
+  return { type: "truck", direction, speed, vehicles };
+}
+
+function generateRow() {
+  const type = randomElement(["car", "truck", "forest"]);
+  if (type === "car") return generateCarLaneMetadata();
+  if (type === "truck") return generateTruckLaneMetadata();
+  return generateForesMetadata();
+}
+
+function generateRows(amount) {
+  const rows = [];
+  for (let i = 0; i < amount; i++) {
+    const rowData = generateRow();
+    rows.push(rowData);
+  }
+  return rows;
+}
 
 const map = new THREE.Group();
 
@@ -229,48 +478,6 @@ function addRows() {
   });
 }
 
-const player = Player();
-
-function Player() {
-  const player = new THREE.Group();
-
-  const body = new THREE.Mesh(
-    new THREE.BoxGeometry(15, 15, 20),
-    new THREE.MeshLambertMaterial({
-      color: "white",
-      flatShading: true,
-    })
-  );
-  body.position.z = 10;
-  body.castShadow = true;
-  body.receiveShadow = true;
-  player.add(body);
-
-  const cap = new THREE.Mesh(
-    new THREE.BoxGeometry(2, 4, 2),
-    new THREE.MeshLambertMaterial({
-      color: 0xf0619a,
-      flatShading: true,
-    })
-  );
-  cap.position.z = 21;
-  cap.castShadow = true;
-  cap.receiveShadow = true;
-  player.add(cap);
-
-  const playerContainer = new THREE.Group();
-  playerContainer.add(player);
-
-  return playerContainer;
-}
-
-const position = {
-  currentRow: 0,
-  currentTile: 0,
-};
-
-const movesQueue = [];
-
 function initializePlayer() {
   // Initialize the Three.js player object
   player.position.x = 0;
@@ -283,178 +490,6 @@ function initializePlayer() {
 
   // Clear the moves queue
   movesQueue.length = 0;
-}
-
-function queueMove(direction) {
-  const isValidMove = endsUpInValidPosition(
-    {
-      rowIndex: position.currentRow,
-      tileIndex: position.currentTile,
-    },
-    [...movesQueue, direction]
-  );
-
-  if (!isValidMove) return;
-
-  movesQueue.push(direction);
-}
-
-function stepCompleted() {
-  const direction = movesQueue.shift();
-
-  if (direction === "forward") position.currentRow += 1;
-  if (direction === "backward") position.currentRow -= 1;
-  if (direction === "left") position.currentTile -= 1;
-  if (direction === "right") position.currentTile += 1;
-
-  // Add new rows if the player is running out of them
-  if (position.currentRow > metadata.length - 10) addRows();
-
-  const scoreDOM = document.getElementById("score");
-  if (scoreDOM) scoreDOM.innerText = position.currentRow.toString();
-}
-
-function Renderer() {
-  const canvas = document.querySelector("canvas.game");
-  if (!canvas) throw new Error("Canvas not found");
-
-  const renderer = new THREE.WebGLRenderer({
-    alpha: true,
-    antialias: true,
-    canvas: canvas,
-  });
-  renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.shadowMap.enabled = true;
-
-  return renderer;
-}
-
-function Road(rowIndex) {
-  const road = new THREE.Group();
-  road.position.y = rowIndex * tileSize;
-
-  const createSection = (color) =>
-    new THREE.Mesh(
-      new THREE.PlaneGeometry(tilesPerRow * tileSize, tileSize),
-      new THREE.MeshLambertMaterial({ color })
-    );
-
-  const middle = createSection(0x454a59);
-  middle.receiveShadow = true;
-  road.add(middle);
-
-  const left = createSection(0x393d49);
-  left.position.x = -tilesPerRow * tileSize;
-  road.add(left);
-
-  const right = createSection(0x393d49);
-  right.position.x = tilesPerRow * tileSize;
-  road.add(right);
-
-  return road;
-}
-
-function Tree(tileIndex, height) {
-  const tree = new THREE.Group();
-  tree.position.x = tileIndex * tileSize;
-
-  const trunk = new THREE.Mesh(
-    new THREE.BoxGeometry(15, 15, 20),
-    new THREE.MeshLambertMaterial({
-      color: 0x4d2926,
-      flatShading: true,
-    })
-  );
-  trunk.position.z = 10;
-  tree.add(trunk);
-
-  const crown = new THREE.Mesh(
-    new THREE.BoxGeometry(30, 30, height),
-    new THREE.MeshLambertMaterial({
-      color: 0x7aa21d,
-      flatShading: true,
-    })
-  );
-  crown.position.z = height / 2 + 20;
-  crown.castShadow = true;
-  crown.receiveShadow = true;
-  tree.add(crown);
-
-  return tree;
-}
-
-function Truck(initialTileIndex, direction, color) {
-  const truck = new THREE.Group();
-  truck.position.x = initialTileIndex * tileSize;
-  if (!direction) truck.rotation.z = Math.PI;
-
-  const cargo = new THREE.Mesh(
-    new THREE.BoxGeometry(70, 35, 35),
-    new THREE.MeshLambertMaterial({
-      color: 0xb4c6fc,
-      flatShading: true,
-    })
-  );
-  cargo.position.x = -15;
-  cargo.position.z = 25;
-  cargo.castShadow = true;
-  cargo.receiveShadow = true;
-  truck.add(cargo);
-
-  const cabin = new THREE.Mesh(new THREE.BoxGeometry(30, 30, 30), [
-    new THREE.MeshLambertMaterial({
-      color,
-      flatShading: true,
-      map: truckFrontTexture,
-    }), // front
-    new THREE.MeshLambertMaterial({
-      color,
-      flatShading: true,
-    }), // back
-    new THREE.MeshLambertMaterial({
-      color,
-      flatShading: true,
-      map: truckLeftSideTexture,
-    }),
-    new THREE.MeshLambertMaterial({
-      color,
-      flatShading: true,
-      map: truckRightSideTexture,
-    }),
-    new THREE.MeshPhongMaterial({ color, flatShading: true }), // top
-    new THREE.MeshPhongMaterial({ color, flatShading: true }), // bottom
-  ]);
-  cabin.position.x = 35;
-  cabin.position.z = 20;
-  cabin.castShadow = true;
-  cabin.receiveShadow = true;
-
-  truck.add(cabin);
-
-  const frontWheel = Wheel(37);
-  truck.add(frontWheel);
-
-  const middleWheel = Wheel(5);
-  truck.add(middleWheel);
-
-  const backWheel = Wheel(-35);
-  truck.add(backWheel);
-
-  return truck;
-}
-
-function Wheel(x) {
-  const wheel = new THREE.Mesh(
-    new THREE.BoxGeometry(12, 33, 12),
-    new THREE.MeshLambertMaterial({
-      color: 0x333333,
-      flatShading: true,
-    })
-  );
-  wheel.position.x = x;
-  wheel.position.z = 6;
-  return wheel;
 }
 
 function calculateFinalPosition(currentPosition, moves) {
@@ -511,89 +546,33 @@ function endsUpInValidPosition(currentPosition, moves) {
   return true;
 }
 
-function generateRows(amount) {
-  const rows = [];
-  for (let i = 0; i < amount; i++) {
-    const rowData = generateRow();
-    rows.push(rowData);
-  }
-  return rows;
+function queueMove(direction) {
+  const isValidMove = endsUpInValidPosition(
+    {
+      rowIndex: position.currentRow,
+      tileIndex: position.currentTile,
+    },
+    [...movesQueue, direction]
+  );
+
+  if (!isValidMove) return;
+
+  movesQueue.push(direction);
 }
 
-function generateRow() {
-  const type = randomElement(["car", "truck", "forest"]);
-  if (type === "car") return generateCarLaneMetadata();
-  if (type === "truck") return generateTruckLaneMetadata();
-  return generateForesMetadata();
-}
+function stepCompleted() {
+  const direction = movesQueue.shift();
 
-function randomElement(array) {
-  return array[Math.floor(Math.random() * array.length)];
-}
+  if (direction === "forward") position.currentRow += 1;
+  if (direction === "backward") position.currentRow -= 1;
+  if (direction === "left") position.currentTile -= 1;
+  if (direction === "right") position.currentTile += 1;
 
-function generateForesMetadata() {
-  const occupiedTiles = new Set();
-  const trees = Array.from({ length: 4 }, () => {
-    let tileIndex;
-    do {
-      tileIndex = THREE.MathUtils.randInt(minTileIndex, maxTileIndex);
-    } while (occupiedTiles.has(tileIndex));
-    occupiedTiles.add(tileIndex);
+  // Add new rows if the player is running out of them
+  if (position.currentRow > metadata.length - 10) addRows();
 
-    const height = randomElement([20, 45, 60]);
-
-    return { tileIndex, height };
-  });
-
-  return { type: "forest", trees };
-}
-
-function generateCarLaneMetadata() {
-  const direction = randomElement([true, false]);
-  const speed = randomElement([125, 156, 188]);
-
-  const occupiedTiles = new Set();
-
-  const vehicles = Array.from({ length: 3 }, () => {
-    let initialTileIndex;
-    do {
-      initialTileIndex = THREE.MathUtils.randInt(minTileIndex, maxTileIndex);
-    } while (occupiedTiles.has(initialTileIndex));
-    occupiedTiles.add(initialTileIndex - 1);
-    occupiedTiles.add(initialTileIndex);
-    occupiedTiles.add(initialTileIndex + 1);
-
-    const color = randomElement([0xa52523, 0xbdb638, 0x78b14b]);
-
-    return { initialTileIndex, color };
-  });
-
-  return { type: "car", direction, speed, vehicles };
-}
-
-function generateTruckLaneMetadata() {
-  const direction = randomElement([true, false]);
-  const speed = randomElement([125, 156, 188]);
-
-  const occupiedTiles = new Set();
-
-  const vehicles = Array.from({ length: 2 }, () => {
-    let initialTileIndex;
-    do {
-      initialTileIndex = THREE.MathUtils.randInt(minTileIndex, maxTileIndex);
-    } while (occupiedTiles.has(initialTileIndex));
-    occupiedTiles.add(initialTileIndex - 2);
-    occupiedTiles.add(initialTileIndex - 1);
-    occupiedTiles.add(initialTileIndex);
-    occupiedTiles.add(initialTileIndex + 1);
-    occupiedTiles.add(initialTileIndex + 2);
-
-    const color = randomElement([0xa52523, 0xbdb638, 0x78b14b]);
-
-    return { initialTileIndex, color };
-  });
-
-  return { type: "truck", direction, speed, vehicles };
+  const scoreDOM = document.getElementById("score");
+  if (scoreDOM) scoreDOM.innerText = position.currentRow.toString();
 }
 
 const moveClock = new THREE.Clock(false);
@@ -676,6 +655,74 @@ function animateVehicles() {
   });
 }
 
+function hitTest() {
+  const row = metadata[position.currentRow - 1];
+  if (!row) return;
+
+  if (row.type === "car" || row.type === "truck") {
+    const playerBoundingBox = new THREE.Box3();
+    playerBoundingBox.setFromObject(player);
+
+    row.vehicles.forEach(({ ref }) => {
+      if (!ref) throw Error("Vehicle reference is missing");
+
+      const vehicleBoundingBox = new THREE.Box3();
+      vehicleBoundingBox.setFromObject(ref);
+
+      if (playerBoundingBox.intersectsBox(vehicleBoundingBox)) {
+        if (!resultDOM || !finalScoreDOM) return;
+        resultDOM.style.visibility = "visible";
+        finalScoreDOM.innerText = position.currentRow.toString();
+      }
+    });
+  }
+}
+
+function Renderer() {
+  const canvas = document.querySelector("canvas.game");
+  if (!canvas) throw new Error("Canvas not found");
+
+  const renderer = new THREE.WebGLRenderer({
+    alpha: true,
+    antialias: true,
+    canvas: canvas,
+  });
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.shadowMap.enabled = true;
+
+  return renderer;
+}
+
+// Initialize game
+const scene = new THREE.Scene();
+const player = Player();
+scene.add(player);
+scene.add(map);
+
+const ambientLight = new THREE.AmbientLight();
+scene.add(ambientLight);
+
+const dirLight = DirectionalLight();
+dirLight.target = player;
+player.add(dirLight);
+
+const camera = Camera();
+player.add(camera);
+
+const scoreDOM = document.getElementById("score");
+const resultDOM = document.getElementById("result-container");
+const finalScoreDOM = document.getElementById("final-score");
+
+function initializeGame() {
+  initializePlayer();
+  initializeMap();
+
+  // Initialize UI
+  if (scoreDOM) scoreDOM.innerText = "0";
+  if (resultDOM) resultDOM.style.visibility = "hidden";
+}
+
 document
   .getElementById("forward")
   ?.addEventListener("click", () => queueMove("forward"));
@@ -708,59 +755,7 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-function hitTest() {
-  const row = metadata[position.currentRow - 1];
-  if (!row) return;
-
-  if (row.type === "car" || row.type === "truck") {
-    const playerBoundingBox = new THREE.Box3();
-    playerBoundingBox.setFromObject(player);
-
-    row.vehicles.forEach(({ ref }) => {
-      if (!ref) throw Error("Vehicle reference is missing");
-
-      const vehicleBoundingBox = new THREE.Box3();
-      vehicleBoundingBox.setFromObject(ref);
-
-      if (playerBoundingBox.intersectsBox(vehicleBoundingBox)) {
-        if (!resultDOM || !finalScoreDOM) return;
-        resultDOM.style.visibility = "visible";
-        finalScoreDOM.innerText = position.currentRow.toString();
-      }
-    });
-  }
-}
-
-const scene = new THREE.Scene();
-scene.add(player);
-scene.add(map);
-
-const ambientLight = new THREE.AmbientLight();
-scene.add(ambientLight);
-
-const dirLight = DirectionalLight();
-dirLight.target = player;
-player.add(dirLight);
-
-const camera = Camera();
-player.add(camera);
-
-const scoreDOM = document.getElementById("score");
-const resultDOM = document.getElementById("result-container");
-const finalScoreDOM = document.getElementById("final-score");
-
-initializeGame();
-
 document.querySelector("#retry")?.addEventListener("click", initializeGame);
-
-function initializeGame() {
-  initializePlayer();
-  initializeMap();
-
-  // Initialize UI
-  if (scoreDOM) scoreDOM.innerText = "0";
-  if (resultDOM) resultDOM.style.visibility = "hidden";
-}
 
 const renderer = Renderer();
 renderer.setAnimationLoop(animate);
@@ -772,3 +767,6 @@ function animate() {
 
   renderer.render(scene, camera);
 }
+
+// Start the game
+initializeGame();
