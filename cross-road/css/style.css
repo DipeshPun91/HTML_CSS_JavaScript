@@ -38,7 +38,6 @@ body {
   position: absolute;
   top: 20px;
   left: 20px;
-
   font-size: 2em;
   color: white;
 }
@@ -52,20 +51,20 @@ body {
   align-items: center;
   justify-content: center;
   visibility: hidden;
+}
 
-  #result {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
-    padding: 20px;
-  }
+#result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 20px;
+}
 
-  button {
-    background-color: red;
-    padding: 20px 50px 20px 50px;
-    font-family: inherit;
-    font-size: inherit;
-    cursor: pointer;
-  }
+#result button {
+  background-color: red;
+  padding: 20px 50px 20px 50px;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
 }
