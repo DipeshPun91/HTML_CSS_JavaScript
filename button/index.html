@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Circular Button Layout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .orbit-container {
+        position: relative;
+        width: 400px;
+        height: 400px;
+      }
+
+      .center-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 80px;
+        height: 80px;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        z-index: 10;
+      }
+
+      .orbit-button {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body class="flex items-center justify-center h-screen bg-gray-100">
+    <div class="orbit-container">
+      <!-- Center Button -->
+      <button
+        class="center-button bg-blue-600 text-white text-lg font-bold shadow-lg"
+      >
+        C
+      </button>
+
+      <!-- Buttons added dynamically via JS -->
+    </div>
+
+    <script>
+      const orbitRadius = 140; // distance from center
+      const buttonCount = 10;
+      const container = document.querySelector(".orbit-container");
+
+      for (let i = 0; i < buttonCount; i++) {
+        const angle = (i / buttonCount) * 2 * Math.PI;
+        const x = orbitRadius * Math.cos(angle);
+        const y = orbitRadius * Math.sin(angle);
+
+        const btn = document.createElement("button");
+        btn.className =
+          "orbit-button bg-white text-blue-600 border border-blue-400 font-medium shadow";
+        btn.style.left = `calc(50% + ${x}px - 25px)`; // 25px = half button size
+        btn.style.top = `calc(50% + ${y}px - 25px)`;
+        btn.textContent = i + 1;
+
+        container.appendChild(btn);
+      }
+    </script>
+  </body>
+</html>
