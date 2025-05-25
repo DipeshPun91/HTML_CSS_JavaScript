@@ -2,49 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Circular Button Layout</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      .orbit-container {
-        position: relative;
-        width: 400px;
-        height: 400px;
-      }
+    <title>Radial Button Layout</title>
 
-      .center-button {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 80px;
-        height: 80px;
-        transform: translate(-50%, -50%);
-        border-radius: 50%;
-        z-index: 10;
-      }
-
-      .orbit-button {
-        position: absolute;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-      }
-    </style>
+    <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body class="flex items-center justify-center h-screen bg-gray-100">
+  <body>
     <div class="orbit-container">
       <!-- Center Button -->
-      <button
-        class="center-button bg-blue-600 text-white text-lg font-bold shadow-lg"
-      >
-        C
-      </button>
-
-      <!-- Buttons added dynamically via JS -->
+      <button class="center-button">Center</button>
     </div>
 
     <script>
-      const orbitRadius = 140; // distance from center
+      const orbitRadius = 150;
       const buttonCount = 10;
       const container = document.querySelector(".orbit-container");
 
@@ -54,12 +23,10 @@
         const y = orbitRadius * Math.sin(angle);
 
         const btn = document.createElement("button");
-        btn.className =
-          "orbit-button bg-white text-blue-600 border border-blue-400 font-medium shadow";
-        btn.style.left = `calc(50% + ${x}px - 25px)`; // 25px = half button size
-        btn.style.top = `calc(50% + ${y}px - 25px)`;
-        btn.textContent = i + 1;
-
+        btn.className = "orbit-button";
+        btn.style.left = `calc(50% + ${x}px - 40px)`; // 40 = half button width
+        btn.style.top = `calc(50% + ${y}px - 20px)`; // 20 = half button height
+        btn.innerHTML = `<span>${i + 1}</span>`;
         container.appendChild(btn);
       }
     </script>
