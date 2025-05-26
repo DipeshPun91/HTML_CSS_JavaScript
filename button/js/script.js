@@ -15,14 +15,13 @@ const orbitRadius = 160;
 const buttonCount = labels.length;
 const container = document.querySelector(".orbit-container");
 
-// Add subtle animation delay to each button
 let delay = 0;
 
 for (let i = 0; i < buttonCount; i++) {
   const angle = (i / buttonCount) * 2 * Math.PI;
   const x = orbitRadius * Math.cos(angle);
   const y = orbitRadius * Math.sin(angle);
-  const rotation = (angle * 180) / Math.PI + 90;
+  const rotation = (angle * 180) / Math.PI;
 
   const btn = document.createElement("button");
   btn.className = "orbit-button";
@@ -31,13 +30,14 @@ for (let i = 0; i < buttonCount; i++) {
   btn.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
   btn.style.transitionDelay = `${delay}ms`;
 
-  btn.innerHTML = `<span style="transform: rotate(-${rotation}deg)">${labels[i]}</span>`;
+  btn.innerHTML = `<span style="transform: rotate(${-rotation}deg)">${
+    labels[i]
+  }</span>`;
   container.appendChild(btn);
 
   delay += 50;
 }
 
-// Add animation on load
 document.addEventListener("DOMContentLoaded", () => {
   const buttons = document.querySelectorAll(".orbit-button");
   buttons.forEach((btn) => {
