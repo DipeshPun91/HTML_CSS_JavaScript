@@ -1,0 +1,590 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #101216;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  line-height: 1.6;
+}
+
+.area {
+  --ease-elastic: cubic-bezier(0.5, 2, 0.3, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  inset: 0;
+
+  .area-wrapper {
+    padding: 60px 0;
+
+    &:hover .wrapper {
+      transform: translateY(0) scale(1);
+      box-shadow: 0 20px 50px -5px black;
+    }
+  }
+}
+
+.wrapper {
+  width: 440px;
+  height: 108px;
+  border-radius: 100px;
+  position: relative;
+  z-index: 2;
+  transition: all 0.6s var(--ease-elastic);
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 30px 70px -5px black;
+
+  .frame-mask {
+    position: absolute;
+    top: 0px;
+    bottom: 0;
+    right: 0;
+    left: -3px;
+    z-index: 20;
+    pointer-events: none;
+    margin: auto;
+  }
+
+  .frame {
+    border-radius: 100px;
+
+    .frame-inner {
+      position: absolute;
+      inset: 0;
+      background: #202226;
+      border-radius: inherit;
+      box-shadow: inset 0 0 2px 1px rgba(255, 255, 255, 0.09);
+    }
+    .frame-black {
+      position: absolute;
+      border-radius: inherit;
+      background: black;
+      inset: 7px 8px;
+    }
+    .frame-buttons {
+      position: absolute;
+      inset: 0 6px 6px 6px;
+      border-radius: inherit;
+      overflow: hidden;
+
+      &::before {
+        content: "";
+        background: black;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 103px;
+        right: 0;
+        z-index: 3;
+        border-radius: 100px 0 0 0;
+      }
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      border-radius: inherit;
+      inset: 0;
+      background: #0d0d11;
+      transform: translateY(10px);
+      box-shadow: inset 5px -2px 6px 0px rgba(255, 255, 255, 0.05);
+    }
+  }
+}
+
+.wrap {
+  position: absolute;
+  pointer-events: none;
+  width: 42%;
+  top: 6px;
+  bottom: 0;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    z-index: 10;
+    cursor: pointer;
+    pointer-events: all;
+    user-select: none;
+    outline: none;
+  }
+
+  .button {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background: #15161a;
+    z-index: 2;
+    transition: all 0.2s ease, transform 0.4s var(--ease-elastic);
+    color: #535868;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    outline: none;
+    border: 0;
+  }
+
+  input:hover ~ .button {
+    transform: translateY(-4px);
+  }
+
+  &.wrap-1 {
+    left: 0;
+
+    .layer {
+      content: "";
+      position: absolute;
+    }
+
+    .layer-1 {
+      border-radius: 100px 0 0 100px;
+      inset: 0;
+      background: linear-gradient(to bottom, #0b0b0b, #141414);
+      mask: radial-gradient(
+        90px at 193px 82px,
+        transparent calc(100% - 1px),
+        black
+      );
+    }
+
+    .layer-2 {
+      position: absolute;
+      right: 16px;
+      top: -4px;
+      left: 40px;
+      height: 6px;
+      border-radius: 0 0 5px 0;
+      background: linear-gradient(to left, #0c0c0c, rgba(255, 255, 255, 0));
+      transform: translateY(4px);
+      transition: all 0.3s ease, transform 0.3s var(--ease-elastic);
+      z-index: 1;
+    }
+
+    .button {
+      border-radius: 100px 0 0 100px;
+      box-shadow: inset 7px 11px 3px -10px rgba(255, 255, 255, 0.06),
+        inset -2px -2px 9px 0px rgba(255, 255, 255, 0.1),
+        inset -10px 8px 19px 10px rgba(0, 0, 0, 0.3);
+      mask: radial-gradient(
+        90px at 193px 82px,
+        transparent calc(100% - 1px),
+        black
+      );
+      padding-right: 30%;
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: 101px;
+        bottom: -80px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.06);
+        width: 170px;
+        height: 170px;
+        filter: blur(7px);
+        transition: all 0.2s ease;
+      }
+    }
+  }
+
+  &.wrap-2 {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0px;
+    margin: auto;
+    width: 46%;
+    z-index: 10;
+    border-radius: 0 0 78px 0;
+    overflow: hidden;
+
+    input {
+      z-index: 6;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.05),
+        #141414
+      );
+      border-radius: 100px 5px 100px 5px;
+      inset: 0;
+      top: 6px;
+    }
+
+    span {
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        height: 18px;
+        width: 70px;
+        margin: auto;
+        filter: blur(6px);
+        background: rgba(0, 128, 255, 0.45);
+        transition: all 0.5s ease;
+      }
+    }
+
+    .play {
+      position: relative;
+      height: 20px;
+      overflow: visible;
+
+      .play-text {
+        transition: all 0.1s ease, opacity 0.5s linear;
+      }
+    }
+
+    .button {
+      z-index: 3;
+      top: 6px;
+      bottom: 0;
+      height: calc(100% - 6px);
+      border-radius: 100px 5px 100px 5px;
+      background: #061628;
+      color: #00daff;
+      box-shadow: inset 0 0 4px 0 rgba(255, 255, 255, 0.1),
+        inset 0 6px 3px -4px rgba(255, 255, 255, 0.1),
+        inset -10px -7px 15px -4px rgba(255, 255, 255, 0.05),
+        inset 0 -8px 20px 10px rgba(0, 0, 0, 0.7);
+
+      &::before {
+        content: "";
+        background: linear-gradient(
+          136deg,
+          rgba(255, 255, 255, 0.01) 0%,
+          rgba(255, 255, 255, 0.04) 50%,
+          rgba(255, 255, 255, 0.02) 51%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        box-shadow: inset 0 30px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease, transform 0.4s var(--ease-elastic);
+        opacity: 0.7;
+        position: absolute;
+        left: 13px;
+        bottom: 11px;
+        top: 0;
+        right: 0;
+        border-radius: 100px 10px 100px 10px;
+        z-index: 4;
+      }
+
+      &::after {
+        position: absolute;
+        content: "";
+        inset: 0;
+        width: 170%;
+        background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0.6) 50%,
+          rgba(255, 255, 255, 1) 50%,
+          rgba(255, 255, 255, 0.3) 100%
+        );
+        z-index: 10;
+        opacity: 0.05;
+        transform: translateX(-100%) skewX(-30deg);
+      }
+    }
+  }
+  &.wrap-3 {
+    z-index: 4;
+    right: 0;
+
+    .layer {
+      content: "";
+      position: absolute;
+    }
+
+    .layer-1 {
+      border-radius: 0 100px 100px 0;
+      inset: 0;
+      background: linear-gradient(to left, #0b0b0b, #0a0b0b);
+      mask: radial-gradient(
+        90px at -20px 0,
+        transparent calc(100% - 1px),
+        black
+      );
+    }
+    .layer-2 {
+      position: absolute;
+      left: 16px;
+      bottom: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(to right, #141414, rgba(255, 255, 255, 0));
+      transform: translateY(5px);
+      transition: all 0.3s ease, transform 0.4s var(--ease-elastic);
+      z-index: 1;
+    }
+
+    .button {
+      border-radius: 0 100px 100px 0;
+      mask: radial-gradient(
+        90px at -20px 0,
+        transparent calc(100% - 1px),
+        black
+      );
+      box-shadow: inset -7px 11px 3px -10px rgba(255, 255, 255, 0.06),
+        inset -3px 2px 1px -1px rgba(255, 255, 255, 0.05),
+        inset -5px -8px 8px -3px rgba(255, 255, 255, 0.05),
+        inset 10px 8px 19px 10px rgba(0, 0, 0, 0.3);
+      letter-spacing: 0.1rem;
+      padding-left: 21%;
+      font-size: 23px;
+
+      &::before {
+        content: "";
+        position: absolute;
+        right: 102px;
+        top: -80px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.03);
+        transition: 0.2s ease;
+        width: 170px;
+        height: 170px;
+      }
+    }
+  }
+
+  input:not(:checked):not(:active):hover ~ .button ~ .layer-2 {
+    transform: translateY(0);
+  }
+}
+
+.wrap-1 input:checked ~ .button,
+.wrap-1 input:active ~ .button-1 {
+  transform: translateY(4px) !important;
+  box-shadow: inset 7px 21px 13px -10px rgba(0, 0, 0, 0.65),
+    inset -2px -2px 9px 0px rgba(255, 255, 255, 0.1),
+    inset -10px 8px 19px 10px rgba(0, 0, 0, 0.3);
+  background: #111114;
+
+  &::before {
+    background: rgba(0, 0, 0, 0.2);
+  }
+}
+
+.wrap-2 input:checked ~ .button,
+.wrap-2 input:active ~ .button-2 {
+  transform: translateY(4px) !important;
+  background: #01160a;
+  color: #92ff98;
+
+  span {
+    &::before {
+      background: rgba(0, 255, 13, 0.25);
+    }
+  }
+
+  box-shadow: inset 0 0 4px 0 rgb(0 0 0),
+    inset 0 6px 3px -4px rgba(0, 0, 0, 0.14),
+    inset -10px -7px 15px -4px rgba(0, 0, 0, 0.06),
+    inset 0 -8px 20px 10px rgba(0, 0, 0, 0.7),
+    inset 0 -10px 15px -5px rgba(255, 255, 255, 0.2);
+
+  &::before {
+    transform: translateX(10px) translateY(-3px);
+  }
+}
+
+.wrap-3 input:checked ~ .button,
+.wrap-3 input:active ~ .button-3 {
+  transform: translateY(4px) !important;
+  box-shadow: inset -7px 21px 13px -10px rgba(0, 0, 0, 0.5),
+    inset -3px 2px 1px -1px rgba(0, 0, 0, 0.3),
+    inset -5px -8px 8px -3px rgba(255, 255, 255, 0.05),
+    inset 10px 8px 19px 10px rgba(0, 0, 0, 0.3);
+  background: #111114;
+
+  &::before {
+    background: rgba(0, 0, 0, 0.3);
+    filter: blur(5px);
+  }
+}
+
+.led {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  bottom: 0;
+
+  margin: auto;
+  border-radius: 50%;
+  width: 6px;
+  height: 6px;
+  transition: all 0.4s linear;
+
+  background-color: #51ffe2;
+  box-shadow: inset 0 3px 2px -1px white, 0 0 25px 8px rgba(40, 248, 255, 0.3),
+    0 0 0 2px rgba(0, 0, 0, 0.35), 0 0 3px 4px rgba(0, 122, 152, 0.4);
+}
+
+@keyframes led {
+  40%,
+  60% {
+    background-color: #ffad51;
+    box-shadow: inset 0 3px 2px -1px white, 0 0 25px 8px rgba(188, 38, 0, 0.7),
+      0 0 0 2px rgba(0, 0, 0, 0.35), 0 0 3px 4px rgba(152, 80, 0, 0.4);
+  }
+}
+
+.wrap input:checked ~ .button--led .led {
+  background-color: #5aff4e;
+  box-shadow: inset 0 3px 2px -1px white, 0 0 25px 8px rgba(60, 188, 0, 0.6),
+    0 0 0 2px rgba(0, 0, 0, 0.35), 0 0 3px 4px rgba(3, 152, 0, 0.6);
+
+  animation: led 2s ease infinite;
+}
+
+.wrap input:hover ~ .button {
+  transform: translateY(-4px);
+
+  &.button-3 {
+    .led {
+      background-color: #ffad51;
+      box-shadow: inset 0 3px 2px -1px white, 0 0 25px 8px rgba(188, 38, 0, 0.7),
+        0 0 0 2px rgba(0, 0, 0, 0.35), 0 0 3px 4px rgba(152, 80, 0, 0.4);
+    }
+  }
+
+  &.button-2 {
+    &::after {
+      animation: reflex 0.8s ease-out;
+    }
+
+    span {
+      &::before {
+        opacity: 0.4;
+      }
+    }
+    .play {
+      .play-text {
+        opacity: 0.3;
+      }
+      .play-mask {
+        animation: mask 1.5s ease infinite;
+      }
+    }
+  }
+
+  &.button-1 {
+    svg {
+      animation: 0.9s rotate var(--ease-elastic);
+    }
+  }
+}
+
+@keyframes reflex {
+  0% {
+    transform: translateX(-100%) skewX(-30deg);
+  }
+  100% {
+    transform: translateX(100%) skewX(-30deg);
+  }
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(-180deg);
+  }
+}
+
+.wrap input:checked ~ .button-1 {
+  .curve {
+    animation: repeatCurve 1.5s ease infinite;
+  }
+  .arrow {
+    animation: repeatArrow 1.5s ease infinite;
+  }
+}
+
+@keyframes repeatCurve {
+  0% {
+    stroke-dashoffset: 1100;
+  }
+  50%,
+  100% {
+    stroke-dashoffset: -1100;
+  }
+}
+
+@keyframes repeatArrow {
+  0% {
+    stroke-dashoffset: 580;
+  }
+
+  100% {
+    stroke-dashoffset: -580;
+  }
+}
+
+.wrapper:not(:hover) .frame-reflex {
+  animation: mask 1.1s ease;
+  opacity: 0.2;
+}
+
+@keyframes mask {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(190%);
+  }
+}
+
+.button-1 svg {
+  overflow: visible;
+  transition: all 1s var(--ease-elastic);
+  stroke-width: 80px;
+
+  .g-2 {
+    filter: url(#glow);
+    color: white;
+    stroke-width: 50px;
+    .curve {
+      stroke-dasharray: 1100;
+      stroke-dashoffset: 1100;
+    }
+
+    .arrow {
+      stroke-dasharray: 580;
+      stroke-dashoffset: 580;
+    }
+  }
+}
+
+.noise {
+  position: absolute;
+  top: -25px;
+  bottom: -20px;
+  left: 0;
+  right: 0;
+  opacity: 0.07;
+  mask-image: linear-gradient(
+    transparent 5%,
+    white 30%,
+    white 70%,
+    transparent 95%
+  );
+  filter: grayscale(1);
+  pointer-events: none;
+  z-index: 1;
+}
