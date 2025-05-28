@@ -1,6 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
 :root {
   --primary-bg: #0f0f13;
-  --card-bg: #1a1a23;
+  --card-bg: rgba(26, 26, 35, 0.8);
   --text-primary: #ffffff;
   --text-secondary: rgba(255, 255, 255, 0.75);
   --accent-color: #6c5ce7;
@@ -124,6 +126,10 @@ body {
   opacity: 0;
   transform: translateY(20px);
   transition: all calc(var(--transition-speed) * 0.9) var(--easing);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .card-details p {
@@ -144,6 +150,7 @@ body {
   font-size: 0.95rem;
   transition: all 0.2s ease;
   width: fit-content;
+  margin-top: auto;
 }
 
 .card-link:hover {
@@ -166,7 +173,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: -1;
+  z-index: 0;
   filter: grayscale(100%) brightness(0.4);
   transition: filter var(--transition-speed) var(--easing);
 }
