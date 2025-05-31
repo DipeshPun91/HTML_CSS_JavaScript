@@ -25,11 +25,6 @@ body {
 
   .area-wrapper {
     padding: 60px 0;
-
-    &:hover .wrapper {
-      transform: translateY(0) scale(1);
-      box-shadow: 0 20px 50px -5px black;
-    }
   }
 }
 
@@ -135,10 +130,6 @@ body {
     font-size: 25px;
     outline: none;
     border: 0;
-  }
-
-  input:hover ~ .button {
-    transform: translateY(-4px);
   }
 
   &.wrap-1 {
@@ -363,10 +354,6 @@ body {
       }
     }
   }
-
-  input:not(:checked):not(:active):hover ~ .button ~ .layer-2 {
-    transform: translateY(0);
-  }
 }
 
 .wrap-1 input:checked ~ .button,
@@ -454,44 +441,6 @@ body {
   animation: led 2s ease infinite;
 }
 
-.wrap input:hover ~ .button {
-  transform: translateY(-4px);
-
-  &.button-3 {
-    .led {
-      background-color: #ffad51;
-      box-shadow: inset 0 3px 2px -1px white, 0 0 25px 8px rgba(188, 38, 0, 0.7),
-        0 0 0 2px rgba(0, 0, 0, 0.35), 0 0 3px 4px rgba(152, 80, 0, 0.4);
-    }
-  }
-
-  &.button-2 {
-    &::after {
-      animation: reflex 0.8s ease-out;
-    }
-
-    span {
-      &::before {
-        opacity: 0.4;
-      }
-    }
-    .play {
-      .play-text {
-        opacity: 0.3;
-      }
-      .play-mask {
-        animation: mask 1.5s ease infinite;
-      }
-    }
-  }
-
-  &.button-1 {
-    svg {
-      animation: 0.9s rotate var(--ease-elastic);
-    }
-  }
-}
-
 @keyframes reflex {
   0% {
     transform: translateX(-100%) skewX(-30deg);
@@ -534,11 +483,6 @@ body {
   100% {
     stroke-dashoffset: -580;
   }
-}
-
-.wrapper:not(:hover) .frame-reflex {
-  animation: mask 1.1s ease;
-  opacity: 0.2;
 }
 
 @keyframes mask {
