@@ -97,56 +97,58 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function createClouds() {
     cloudsContainer.innerHTML = "";
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 4; i++) {
       const cloud = document.createElement("div");
       cloud.className = "cloud";
-      cloud.style.width = `${80 + Math.random() * 40}px`;
-      cloud.style.height = `${40 + Math.random() * 20}px`;
-      cloud.style.top = `${30 + Math.random() * 100}px`;
+      cloud.style.width = `${100 + Math.random() * 60}px`;
+      cloud.style.height = `${50 + Math.random() * 30}px`;
+      cloud.style.top = `${20 + Math.random() * 120}px`;
       cloud.style.left = `${Math.random() * 300}px`;
-      cloud.style.opacity = `${0.7 + Math.random() * 0.3}`;
+      cloud.style.opacity = `${0.6 + Math.random() * 0.4}`;
+      cloud.style.animationDelay = `${Math.random() * 5}s`;
+      cloud.style.zIndex = 3 - i;
       cloudsContainer.appendChild(cloud);
     }
   }
 
   function createRain() {
     rainContainer.innerHTML = "";
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 60; i++) {
       const drop = document.createElement("div");
       drop.className = "drop";
       drop.style.left = `${Math.random() * 100}%`;
       drop.style.top = `${-10 + Math.random() * 20}%`;
-      drop.style.height = `${5 + Math.random() * 10}px`;
-      drop.style.animationDelay = `${Math.random() * 2}s`;
-      drop.style.animationDuration = `${0.5 + Math.random() * 0.5}s`;
+      drop.style.height = `${8 + Math.random() * 12}px`;
+      drop.style.animationDelay = `${Math.random() * 1.5}s`;
+      drop.style.animationDuration = `${0.4 + Math.random() * 0.6}s`;
       rainContainer.appendChild(drop);
     }
   }
 
   function createSnow() {
     snowContainer.innerHTML = "";
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 120; i++) {
       const flake = document.createElement("div");
       flake.className = "flake";
       flake.style.left = `${Math.random() * 100}%`;
       flake.style.top = `${-10 + Math.random() * 20}%`;
-      flake.style.width = flake.style.height = `${2 + Math.random() * 3}px`;
-      flake.style.opacity = Math.random();
-      flake.style.animationDelay = `${Math.random() * 5}s`;
-      flake.style.animationDuration = `${3 + Math.random() * 5}s`;
+      flake.style.width = flake.style.height = `${3 + Math.random() * 4}px`;
+      flake.style.opacity = `${0.5 + Math.random() * 0.5}`;
+      flake.style.animationDelay = `${Math.random() * 6}s`;
+      flake.style.animationDuration = `${4 + Math.random() * 6}s`;
       snowContainer.appendChild(flake);
     }
   }
 
   function createLightning() {
     lightningContainer.innerHTML = "";
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 4; i++) {
       const bolt = document.createElement("div");
       bolt.className = "bolt";
       bolt.style.left = `${20 + Math.random() * 60}%`;
-      bolt.style.top = `${10 + Math.random() * 30}%`;
-      bolt.style.width = `${5 + Math.random() * 10}px`;
-      bolt.style.height = `${30 + Math.random() * 50}px`;
+      bolt.style.top = `${10 + Math.random() * 40}%`;
+      bolt.style.width = `${6 + Math.random() * 12}px`;
+      bolt.style.height = `${40 + Math.random() * 60}px`;
       bolt.style.opacity = 0;
       lightningContainer.appendChild(bolt);
     }
@@ -160,23 +162,29 @@ document.addEventListener("DOMContentLoaded", function () {
     const bolts = document.querySelectorAll(".bolt");
     bolts.forEach((bolt) => {
       setTimeout(() => {
-        bolt.style.opacity = 0.8;
+        bolt.style.opacity = 0.9;
+        weatherIcon.style.background =
+          "linear-gradient(to bottom, #424242 0%, #757575 50%, #ffffff 100%)";
         setTimeout(() => {
           bolt.style.opacity = 0;
-        }, 100);
-      }, Math.random() * 3000);
+          weatherIcon.style.background = weatherData.thunder.color;
+        }, 150);
+      }, Math.random() * 2500);
     });
 
     lightningInterval = setInterval(() => {
       bolts.forEach((bolt) => {
         setTimeout(() => {
-          bolt.style.opacity = 0.8;
+          bolt.style.opacity = 0.9;
+          weatherIcon.style.background =
+            "linear-gradient(to bottom, #424242 0%, #757575 50%, #ffffff 100%)";
           setTimeout(() => {
             bolt.style.opacity = 0;
-          }, 100);
-        }, Math.random() * 1000);
+            weatherIcon.style.background = weatherData.thunder.color;
+          }, 150);
+        }, Math.random() * 1500);
       });
-    }, 3000);
+    }, 3500);
   }
 
   function setWeather(weatherType) {
