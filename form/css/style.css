@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "Vamos";
+  src: url("https://fonts.cdnfonts.com/css/vamos") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -8,11 +15,11 @@ html,
 body {
   height: 100vh;
   width: 100%;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Vamos", "Montserrat", sans-serif;
 }
 
 #parent {
-  background: #f8f9fa;
+  background: #f8fafc;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,9 +34,9 @@ body {
 
 .h1 {
   font-weight: 700;
-  margin: 0 0 10px 0;
+  margin: 0 0 15px 0;
   font-size: 1.75rem;
-  color: #333;
+  color: #1e293b;
 }
 
 .p {
@@ -38,7 +45,7 @@ body {
   line-height: 1.5;
   letter-spacing: 0.5px;
   margin: 0 0 20px 0;
-  color: #666;
+  color: #64748b;
 }
 
 .p.font-size {
@@ -48,13 +55,13 @@ body {
 
 .span {
   font-size: 0.75rem;
-  color: #666;
+  color: #64748b;
   margin-bottom: 15px;
   display: block;
 }
 
 .a {
-  color: #4361ee;
+  color: #3b82f6;
   font-size: 0.75rem;
   text-decoration: none;
   margin: 10px 0;
@@ -62,38 +69,69 @@ body {
 }
 
 .a:hover {
-  color: #3a0ca3;
+  color: #2563eb;
   cursor: pointer;
 }
 
 .button {
-  border-radius: 25px;
+  border-radius: 8px;
   border: none;
-  background-color: #4361ee;
+  background-color: #3b82f6;
   color: #ffffff;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   font-weight: 600;
   padding: 12px 45px;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
   transition: all 0.3s ease;
   margin-top: 15px;
+  cursor: pointer;
+  width: 100%;
 }
 
 .button:hover {
-  background-color: #3a0ca3;
-  cursor: pointer;
+  background-color: #2563eb;
   transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
 }
 
 .button:active {
   transform: scale(0.98);
 }
 
-.button.ghost {
-  background-color: transparent;
-  border: 2px solid #fff;
-  margin-top: 20px;
+.button:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.button.loading {
+  position: relative;
+  color: transparent;
+}
+
+.button.loading::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border: 3px solid transparent;
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: button-loading-spinner 1s ease infinite;
+}
+
+@keyframes button-loading-spinner {
+  from {
+    transform: rotate(0turn);
+  }
+  to {
+    transform: rotate(1turn);
+  }
 }
 
 .form {
@@ -107,32 +145,58 @@ body {
   text-align: center;
 }
 
+.form-group {
+  width: 100%;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.875rem;
+  color: #334155;
+  font-weight: 500;
+}
+
 .input {
-  background-color: #f5f5f5;
-  border: 1px solid #e0e0e0;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
   padding: 12px 15px;
   margin: 8px 0;
   width: 100%;
   border-radius: 8px;
   transition: all 0.3s ease;
   font-size: 0.875rem;
+  color: #1e293b;
 }
 
 .input:focus {
-  border-color: #4361ee;
+  border-color: #3b82f6;
   outline: none;
-  box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.input.error {
+  border-color: #ef4444;
+}
+
+.error-message {
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 5px;
+  display: none;
 }
 
 .container {
   background-color: #fff;
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   position: relative;
   overflow: hidden;
   width: 800px;
   max-width: 100%;
-  min-height: 500px;
+  min-height: 650px;
 }
 
 .form-container {
@@ -167,7 +231,7 @@ body {
 }
 
 .overlay {
-  background: linear-gradient(135deg, #3a0ca3 0%, #7209b7 50%, #f72585 100%);
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
   color: #ffffff;
   position: relative;
   left: -100%;
@@ -244,19 +308,21 @@ body {
   .overlay-container:has(#toggle[type="checkbox"]:not(:checked))
   .overlay-right
   .overlay-title::before {
-  content: "Hello, Friend!";
+  content: "New Here?";
   font-size: 1.75rem;
   margin-bottom: 15px;
+  color: #ffffff;
 }
 
 .container
   .overlay-container:has(#toggle[type="checkbox"]:not(:checked))
   .overlay-right
   .overlay-info::before {
-  content: "Enter your personal details and start journey with us";
+  content: "Create an account to access all features and start your journey with us";
   font-size: 0.875rem;
   line-height: 1.5;
   margin-bottom: 25px;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .container
@@ -273,16 +339,18 @@ body {
   content: "Welcome Back!";
   font-size: 1.75rem;
   margin-bottom: 15px;
+  color: #ffffff;
 }
 
 .container
   .overlay-container:has(#toggle:checked)
   .overlay-right
   .overlay-info::before {
-  content: "To keep connected with us please login with your personal info";
+  content: "Sign in to your account to continue your journey with us";
   font-size: 0.875rem;
   line-height: 1.5;
   margin-bottom: 25px;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .container
@@ -293,14 +361,57 @@ body {
 }
 
 .button-label {
-  border-color: #fff;
+  border: 1px solid #fff;
   color: #fff;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.button-label:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.checkbox-container input {
+  margin-right: 10px;
+  accent-color: #3b82f6;
+}
+
+.password-strength {
+  width: 100%;
+  height: 4px;
+  background: #e2e8f0;
+  border-radius: 2px;
+  margin-top: 5px;
+  overflow: hidden;
+}
+
+.password-strength-bar {
+  height: 100%;
+  width: 0%;
+  background: #ef4444;
+  transition: all 0.3s ease;
+}
+
+.password-strength-text {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 5px;
+  text-align: left;
 }
 
 @media (max-width: 768px) {
   .container {
     min-height: auto;
     flex-direction: column;
+    height: auto;
   }
 
   .form-container {
