@@ -3,296 +3,752 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Car Rental Landing Page</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <title>Premium Car Rentals | Drive in Style</title>
+    <meta
+      name="description"
+      content="Rent premium vehicles at competitive prices. Luxury, sports, and family cars available for short or long-term rentals."
+    />
     <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
       rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
     />
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="shortcut icon" href="https://i.postimg.cc/gcZdykyW/jeep.png" />
-    <script src="https://unpkg.com/scrollreveal"></script>
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <header>
-      <a href="#" class="logo"
-        ><img src="https://i.postimg.cc/gcZdykyW/jeep.png" alt="car logo"
-      /></a>
+    <!-- Header -->
+    <header id="header">
+      <div class="container header-container">
+        <a href="#" class="logo">
+          <img
+            src="https://i.postimg.cc/gcZdykyW/jeep.png"
+            alt="DriveEasy Logo"
+          />
+          <h1>Drive<span>Easy</span></h1>
+        </a>
 
-      <i class="bx bx-menu" id="menu-icon"></i>
+        <nav class="nav-menu">
+          <ul>
+            <li><a href="#home" class="nav-link">Home</a></li>
+            <li><a href="#fleet" class="nav-link">Our Fleet</a></li>
+            <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+            <li><a href="#features" class="nav-link">Why Choose Us</a></li>
+            <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+          </ul>
+        </nav>
 
-      <ul class="navbar">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#ride">Ride</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#reviews">Reviews</a></li>
-      </ul>
+        <div class="nav-cta">
+          <a href="#" class="btn btn-outline">Sign In</a>
+          <a href="#" class="btn btn-primary">Sign Up</a>
+        </div>
 
-      <div class="header-btn">
-        <a href="#" class="sign-up">Sign Up</a>
-        <a href="#" class="sign-in">Sign In</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="ri-menu-line"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="mobile-menu" id="mobileMenu">
+        <nav class="mobile-nav">
+          <a href="#home" class="nav-link">Home</a>
+          <a href="#fleet" class="nav-link">Our Fleet</a>
+          <a href="#how-it-works" class="nav-link">How It Works</a>
+          <a href="#features" class="nav-link">Why Choose Us</a>
+          <a href="#testimonials" class="nav-link">Testimonials</a>
+        </nav>
+
+        <div class="mobile-cta">
+          <a
+            href="#"
+            class="btn btn-outline"
+            style="width: 100%; margin-bottom: 1rem"
+            >Sign In</a
+          >
+          <a href="#" class="btn btn-primary" style="width: 100%">Sign Up</a>
+        </div>
       </div>
     </header>
 
-    <section class="home" id="home">
-      <div class="text">
-        <h1><span>Looking</span> to <br />rent a car</h1>
-        <p>Where Will the Road Take You? Rent a Car and Find Out!</p>
-        <div class="app-stores">
-          <img src="https://i.postimg.cc/tRY8QX2M/ios.png" alt="ios image" />
-          <img
-            src="https://i.postimg.cc/2yRQKFHm/android.png"
-            alt="android image"
-          />
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Premium Car Rentals Made Simple</h1>
+          <p>
+            Experience the freedom of the open road with our exceptional fleet
+            of vehicles. Whether for business or pleasure, we have the perfect
+            car for your journey.
+          </p>
+          <div class="hero-btns">
+            <a href="#fleet" class="btn btn-primary btn-large">Explore Fleet</a>
+            <a href="#how-it-works" class="btn btn-outline btn-large"
+              >How It Works</a
+            >
+          </div>
         </div>
-      </div>
 
-      <div class="form-container">
-        <form action="">
-          <div class="input-box">
-            <span>Location</span>
-            <input type="search" placeholder="Search Places" />
-          </div>
+        <form class="booking-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="location">Pickup Location</label>
+              <select id="location" class="form-control">
+                <option value="">Select location</option>
+                <option value="nyc">New York City</option>
+                <option value="la">Los Angeles</option>
+                <option value="chicago">Chicago</option>
+                <option value="miami">Miami</option>
+              </select>
+            </div>
 
-          <div class="input-box">
-            <span>Pick-up Date</span>
-            <input type="date" />
-          </div>
+            <div class="form-group">
+              <label for="pickup-date">Pickup Date</label>
+              <input type="date" id="pickup-date" class="form-control" />
+            </div>
 
-          <div class="input-box">
-            <span>Return Date</span>
-            <input type="date" />
+            <div class="form-group">
+              <label for="return-date">Return Date</label>
+              <input type="date" id="return-date" class="form-control" />
+            </div>
+
+            <div class="form-group">
+              <label>&nbsp;</label>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                style="width: 100%; height: 46px"
+              >
+                Search Vehicles
+              </button>
+            </div>
           </div>
-          <input type="submit" class="btn" />
         </form>
       </div>
     </section>
 
-    <section class="ride" id="ride">
-      <div class="heading">
-        <span>How it's works</span>
-        <h1>Rent with 3 easy steps</h1>
-      </div>
-      <div class="ride-container">
-        <div class="box">
-          <i class="ri-map-2-line"></i>
-          <h2>Choose a Location</h2>
-          <p>Browse our wide selection of vehicles according to location</p>
+    <!-- How It Works -->
+    <section class="section steps" id="how-it-works">
+      <div class="container">
+        <div class="section-title">
+          <span>Simple Process</span>
+          <h2>How It Works</h2>
         </div>
 
-        <div class="box">
-          <i class="ri-calendar-line"></i>
-          <h2>Choose a date</h2>
-          <p>Choose a date that fits your needs and budget</p>
-        </div>
-
-        <div class="box">
-          <i class="ri-bookmark-line"></i>
-          <h2>Book a car</h2>
-          <p>Enter your details for a quick and secure booking</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="services" id="services">
-      <div class="heading">
-        <span>Best Services</span>
-        <h1>
-          Explore out Top Deals <br />
-          From Top Rated Dealers
-        </h1>
-      </div>
-      <div class="services-container">
-        <div class="box">
-          <div class="box-img">
-            <img src="https://i.postimg.cc/T31DwXXs/car1.jpg" alt="car image" />
+        <div class="steps-container">
+          <div class="step-card">
+            <div class="step-icon">
+              <i class="ri-map-pin-line"></i>
+            </div>
+            <h3>Choose Location</h3>
+            <p>
+              Select your preferred pickup location from our nationwide network
+              of rental centers.
+            </p>
           </div>
-          <p>2025</p>
-          <h3>Honda Civic Type R</h3>
-          <h2>$45,895 | $276 <span>/month</span></h2>
-          <a href="#" class="btn">Rent Now</a>
-        </div>
 
-        <div class="box">
-          <div class="box-img">
-            <img src="https://i.postimg.cc/QdvHd9mB/car2.jpg" alt="car image" />
+          <div class="step-card">
+            <div class="step-icon">
+              <i class="ri-calendar-check-line"></i>
+            </div>
+            <h3>Pick a Date</h3>
+            <p>
+              Choose your rental dates and times that fit your travel schedule
+              perfectly.
+            </p>
           </div>
-          <p>2025</p>
-          <h3>Honda Civic</h3>
-          <h2>$28,450 | $171 <span>/month</span></h2>
-          <a href="#" class="btn">Rent Now</a>
-        </div>
 
-        <div class="box">
-          <div class="box-img">
-            <img src="https://i.postimg.cc/s2S1QjHT/car3.jpg" alt="car image" />
+          <div class="step-card">
+            <div class="step-icon">
+              <i class="ri-car-line"></i>
+            </div>
+            <h3>Book Your Car</h3>
+            <p>
+              Select your ideal vehicle from our diverse fleet and complete your
+              booking in minutes.
+            </p>
           </div>
-          <p>2025</p>
-          <h3>Honda Civic Si</h3>
-          <h2>$29,000 | $174 <span>/month</span></h2>
-          <a href="#" class="btn">Rent Now</a>
-        </div>
-
-        <div class="box">
-          <div class="box-img">
-            <img src="https://i.postimg.cc/rsYqZ3Yd/car4.jpg" alt="car image" />
-          </div>
-          <p>2023</p>
-          <h3>Honda Civic Type R</h3>
-          <h2>$43,000 | $258 <span>/month</span></h2>
-          <a href="#" class="btn">Rent Now</a>
-        </div>
-
-        <div class="box">
-          <div class="box-img">
-            <img src="https://i.postimg.cc/jqnj5QCR/car5.jpg" alt="car image" />
-          </div>
-          <p>2023</p>
-          <h3>Honda Civic Type R</h3>
-          <h2>$43,000 | $258 <span>/month</span></h2>
-          <a href="#" class="btn">Rent Now</a>
-        </div>
-
-        <div class="box">
-          <div class="box-img">
-            <img src="https://i.postimg.cc/DZSFDFRq/car6.jpg" alt="car image" />
-          </div>
-          <p>2025</p>
-          <h3>Porsche Cayman GT4</h3>
-          <h2>$100,000 | $600 <span>/month</span></h2>
-          <a href="#" class="btn">Rent Now</a>
         </div>
       </div>
     </section>
 
-    <section class="about" id="about">
-      <div class="heading">
-        <span>About Us</span>
-        <h1>Best Customer Experience</h1>
-      </div>
-      <div class="about-container">
-        <div class="about-img">
-          <img
-            src="https://i.postimg.cc/KjtmmbFC/about.png"
-            alt="about banner"
-          />
+    <!-- Fleet Section -->
+    <section class="section fleet" id="fleet">
+      <div class="container">
+        <div class="section-title">
+          <span>Vehicle Collection</span>
+          <h2>Our Premium Fleet</h2>
         </div>
-        <div class="about-text">
-          <span>About us</span>
-          <p>
-            We're passionate about providing you with the perfect vehicle for
-            your needs. Whether you're looking for a short-term rental or a
-            long-term purchase, we offer a diverse selection of cars to suit
-            every taste and budget
-          </p>
-          <p>
-            Our commitment to excellence begins with our extensive inventory,
-            carefully curated to include a wide range of makes, models, and
-            years. We pride ourselves on maintaining a high standard of vehicle
-            quality, ensuring each car undergoes a rigorous inspection process
-            before being offered for sale or rent
-          </p>
-          <a href="#" class="btn">Learn More</a>
+
+        <div class="fleet-nav">
+          <button class="active">All Vehicles</button>
+          <button>Luxury</button>
+          <button>SUV</button>
+          <button>Sports</button>
+          <button>Economy</button>
+        </div>
+
+        <div class="fleet-grid">
+          <div class="vehicle-card">
+            <div class="vehicle-img">
+              <img
+                src="https://images.unsplash.com/photo-1494976388901-8329f0f9c3d1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Ford Mustang"
+              />
+            </div>
+            <div class="vehicle-info">
+              <div class="vehicle-meta">
+                <span>2023 Model</span>
+                <span>Automatic</span>
+              </div>
+              <h3 class="vehicle-title">Ford Mustang GT</h3>
+              <div class="vehicle-price">
+                <span>$129</span>
+                <small>/day</small>
+              </div>
+              <div class="vehicle-features">
+                <div class="feature">
+                  <i class="ri-user-line"></i>
+                  <span>4 Seats</span>
+                </div>
+                <div class="feature">
+                  <i class="ri-gas-station-line"></i>
+                  <span>Petrol</span>
+                </div>
+                <div class="feature">
+                  <i class="ri-dashboard-3-line"></i>
+                  <span>8.2L/100km</span>
+                </div>
+              </div>
+              <a href="#" class="btn btn-primary" style="width: 100%"
+                >Book Now</a
+              >
+            </div>
+          </div>
+
+          <div class="vehicle-card">
+            <div class="vehicle-img">
+              <img
+                src="https://images.unsplash.com/photo-1502877338535-766e1452684a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80"
+                alt="BMW X5"
+              />
+            </div>
+            <div class="vehicle-info">
+              <div class="vehicle-meta">
+                <span>2023 Model</span>
+                <span>Automatic</span>
+              </div>
+              <h3 class="vehicle-title">BMW X5</h3>
+              <div class="vehicle-price">
+                <span>$159</span>
+                <small>/day</small>
+              </div>
+              <div class="vehicle-features">
+                <div class="feature">
+                  <i class="ri-user-line"></i>
+                  <span>5 Seats</span>
+                </div>
+                <div class="feature">
+                  <i class="ri-gas-station-line"></i>
+                  <span>Diesel</span>
+                </div>
+                <div class="feature">
+                  <i class="ri-dashboard-3-line"></i>
+                  <span>6.5L/100km</span>
+                </div>
+              </div>
+              <a href="#" class="btn btn-primary" style="width: 100%"
+                >Book Now</a
+              >
+            </div>
+          </div>
+
+          <div class="vehicle-card">
+            <div class="vehicle-img">
+              <img
+                src="https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Mercedes-Benz S-Class"
+              />
+            </div>
+            <div class="vehicle-info">
+              <div class="vehicle-meta">
+                <span>2023 Model</span>
+                <span>Automatic</span>
+              </div>
+              <h3 class="vehicle-title">Mercedes S-Class</h3>
+              <div class="vehicle-price">
+                <span>$199</span>
+                <small>/day</small>
+              </div>
+              <div class="vehicle-features">
+                <div class="feature">
+                  <i class="ri-user-line"></i>
+                  <span>5 Seats</span>
+                </div>
+                <div class="feature">
+                  <i class="ri-gas-station-line"></i>
+                  <span>Petrol</span>
+                </div>
+                <div class="feature">
+                  <i class="ri-dashboard-3-line"></i>
+                  <span>7.8L/100km</span>
+                </div>
+              </div>
+              <a href="#" class="btn btn-primary" style="width: 100%"
+                >Book Now</a
+              >
+            </div>
+          </div>
+
+          <div class="vehicle-card">
+            <div class="vehicle-img">
+              <img
+                src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Toyota Corolla"
+              />
+            </div>
+            <div class="vehicle-info">
+              <div class="vehicle-meta">
+                <span>2023 Model</span>
+                <span>Automatic</span>
+              </div>
+              <h3 class="vehicle-title">Toyota Corolla</h3>
+              <div class="vehicle-price">
+                <span>$79</span>
+                <small>/day</small>
+              </div>
+              <div class="vehicle-features">
+                <div class="feature">
+                  <i class="ri-user-line"></i>
+                  <span>5 Seats</span>
+                </div>
+                <div class="feature">
+                  <i class="ri-gas-station-line"></i>
+                  <span>Hybrid</span>
+                </div>
+                <div class="feature">
+                  <i class="ri-dashboard-3-line"></i>
+                  <span>4.3L/100km</span>
+                </div>
+              </div>
+              <a href="#" class="btn btn-primary" style="width: 100%"
+                >Book Now</a
+              >
+            </div>
+          </div>
+
+          <div class="vehicle-card">
+            <div class="vehicle-img">
+              <img
+                src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Porsche 911"
+              />
+            </div>
+            <div class="vehicle-info">
+              <div class="vehicle-meta">
+                <span>2023 Model</span>
+                <span>Automatic</span>
+              </div>
+              <h3 class="vehicle-title">Porsche 911</h3>
+              <div class="vehicle-price">
+                <span>$249</span>
+                <small>/day</small>
+              </div>
+              <div class="vehicle-features">
+                <div class="feature">
+                  <i class="ri-user-line"></i>
+                  <span>2 Seats</span>
+                </div>
+                <div class="feature">
+                  <i class="ri-gas-station-line"></i>
+                  <span>Petrol</span>
+                </div>
+                <div class="feature">
+                  <i class="ri-dashboard-3-line"></i>
+                  <span>9.4L/100km</span>
+                </div>
+              </div>
+              <a href="#" class="btn btn-primary" style="width: 100%"
+                >Book Now</a
+              >
+            </div>
+          </div>
+
+          <div class="vehicle-card">
+            <div class="vehicle-img">
+              <img
+                src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1525&q=80"
+                alt="Range Rover"
+              />
+            </div>
+            <div class="vehicle-info">
+              <div class="vehicle-meta">
+                <span>2023 Model</span>
+                <span>Automatic</span>
+              </div>
+              <h3 class="vehicle-title">Range Rover Sport</h3>
+              <div class="vehicle-price">
+                <span>$179</span>
+                <small>/day</small>
+              </div>
+              <div class="vehicle-features">
+                <div class="feature">
+                  <i class="ri-user-line"></i>
+                  <span>5 Seats</span>
+                </div>
+                <div class="feature">
+                  <i class="ri-gas-station-line"></i>
+                  <span>Diesel</span>
+                </div>
+                <div class="feature">
+                  <i class="ri-dashboard-3-line"></i>
+                  <span>7.1L/100km</span>
+                </div>
+              </div>
+              <a href="#" class="btn btn-primary" style="width: 100%"
+                >Book Now</a
+              >
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="reviews" id="reviews">
-      <div class="heading">
-        <span>Reviews</span>
-        <h1>What our Customers Say</h1>
-      </div>
-      <div class="reviews-container">
-        <div class="box">
-          <div class="rev-img">
-            <img
-              src="https://i.postimg.cc/fWCHgFxb/rev1.jpg"
-              alt="review image"
-            />
-          </div>
-          <h2>Alan Doe</h2>
-          <div class="stars">
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-half-fill"></i>
-          </div>
-          <p>
-            I was impressed with the condition of the vehicle I rented. It was
-            clean, well-maintained, and drove perfectly. It made my road trip so
-            much more enjoyable knowing I was driving a reliable and comfortable
-            car. Highly recommend!
-          </p>
+    <!-- Why Choose Us -->
+    <section class="section features" id="features">
+      <div class="container">
+        <div class="section-title">
+          <span>Our Advantages</span>
+          <h2>Why Choose DriveEasy</h2>
         </div>
 
-        <div class="box">
-          <div class="rev-img">
-            <img
-              src="https://i.postimg.cc/YSxgCc2G/rev2.jpg"
-              alt="review image"
-            />
+        <div class="features">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="ri-star-line"></i>
+            </div>
+            <div class="feature-content">
+              <h3>Premium Quality</h3>
+              <p>
+                Our vehicles undergo rigorous inspections and maintenance to
+                ensure they meet the highest standards of quality and
+                performance.
+              </p>
+            </div>
           </div>
-          <h2>John Ford</h2>
-          <div class="stars">
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-fill"></i>
-          </div>
-          <p>
-            I needed a car for a week, and here I offered the best value for my
-            money. Their prices were competitive, and the overall experience was
-            worth every penny. I wouldn't hesitate to rent from them again!
-          </p>
-        </div>
 
-        <div class="box">
-          <div class="rev-img">
-            <img
-              src="https://i.postimg.cc/Qtx7B6V6/rev3.jpg"
-              alt="review image"
-            />
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="ri-24-hours-line"></i>
+            </div>
+            <div class="feature-content">
+              <h3>24/7 Support</h3>
+              <p>
+                Our dedicated customer service team is available around the
+                clock to assist you with any questions or concerns.
+              </p>
+            </div>
           </div>
-          <h2>Katharina Moss</h2>
-          <div class="stars">
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-fill"></i>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="ri-price-tag-3-line"></i>
+            </div>
+            <div class="feature-content">
+              <h3>Competitive Pricing</h3>
+              <p>
+                We offer transparent, competitive pricing with no hidden fees,
+                ensuring you get the best value for your money.
+              </p>
+            </div>
           </div>
-          <p>
-            The online booking process was easy, the car was ready on time, and
-            the return was just as straightforward. No hidden fees, no hassle -
-            just a great experience from start to finish. I'll definitely be
-            using them again!
-          </p>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="ri-map-pin-line"></i>
+            </div>
+            <div class="feature-content">
+              <h3>Nationwide Coverage</h3>
+              <p>
+                With locations across the country, you can pick up and drop off
+                your rental at any of our convenient locations.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="ri-shield-check-line"></i>
+            </div>
+            <div class="feature-content">
+              <h3>Full Insurance</h3>
+              <p>
+                Comprehensive insurance options give you peace of mind during
+                your rental period with complete coverage.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="ri-leaf-line"></i>
+            </div>
+            <div class="feature-content">
+              <h3>Eco-Friendly Options</h3>
+              <p>
+                Choose from our selection of hybrid and electric vehicles to
+                reduce your carbon footprint while traveling.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="newsletter">
-      <h2>Subscribe to Newsletter</h2>
-      <div class="box">
-        <input type="text" placeholder="Enter your email" />
-        <a href="#" class="btn">Subscribe</a>
+    <!-- Testimonials -->
+    <section class="section testimonials" id="testimonials">
+      <div class="container">
+        <div class="section-title">
+          <span>Customer Feedback</span>
+          <h2>What Our Clients Say</h2>
+        </div>
+
+        <div class="testimonials-container">
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="testimonial-avatar">
+                <img
+                  src="https://randomuser.me/api/portraits/men/32.jpg"
+                  alt="Michael Johnson"
+                />
+              </div>
+              <div class="testimonial-author">
+                <h4>Michael Johnson</h4>
+                <p>Business Traveler</p>
+              </div>
+            </div>
+            <div class="testimonial-rating">
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+            </div>
+            <p>
+              "I've rented from DriveEasy multiple times for business trips and
+              they never disappoint. The cars are always clean, well-maintained,
+              and the booking process is seamless. Highly recommend for any
+              business traveler."
+            </p>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="testimonial-avatar">
+                <img
+                  src="https://randomuser.me/api/portraits/women/44.jpg"
+                  alt="Sarah Williams"
+                />
+              </div>
+              <div class="testimonial-author">
+                <h4>Sarah Williams</h4>
+                <p>Family Vacation</p>
+              </div>
+            </div>
+            <div class="testimonial-rating">
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+            </div>
+            <p>
+              "We rented an SUV for our family vacation and it was perfect!
+              Spacious, comfortable, and great on gas. The staff at the rental
+              location were extremely helpful and made the whole process
+              stress-free. Will definitely use DriveEasy again!"
+            </p>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="testimonial-avatar">
+                <img
+                  src="https://randomuser.me/api/portraits/men/67.jpg"
+                  alt="David Chen"
+                />
+              </div>
+              <div class="testimonial-author">
+                <h4>David Chen</h4>
+                <p>Car Enthusiast</p>
+              </div>
+            </div>
+            <div class="testimonial-rating">
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-half-fill"></i>
+            </div>
+            <p>
+              "As a car enthusiast, I appreciate quality vehicles. DriveEasy's
+              sports car selection is impressive - well-maintained and fun to
+              drive. The Porsche 911 I rented was in perfect condition and made
+              my weekend getaway unforgettable."
+            </p>
+          </div>
+        </div>
       </div>
     </section>
-    <div class="copyright">
-      <p>&#169; <span>ULTRA CODE</span> All rights reserved</p>
-      <div class="social">
-        <a href="#"><i class="ri-facebook-fill"></i></a>
-        <a href="#"><i class="ri-twitter-x-line"></i></a>
-        <a href="#"><i class="ri-instagram-line"></i></a>
-      </div>
-    </div>
 
-    <script src="main.js"></script>
+    <!-- CTA Section -->
+    <section class="cta">
+      <div class="container">
+        <h2>Ready for Your Next Adventure?</h2>
+        <p>
+          Join thousands of satisfied customers who have experienced the
+          DriveEasy difference. Book your premium rental car today and enjoy the
+          journey.
+        </p>
+        <a href="#" class="btn btn-primary btn-large">Book Your Car Now</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h3>DriveEasy</h3>
+            <p>
+              Premium car rental service providing exceptional vehicles and
+              customer experiences since 2010.
+            </p>
+            <div class="footer-social">
+              <a href="#"><i class="ri-facebook-fill"></i></a>
+              <a href="#"><i class="ri-twitter-x-line"></i></a>
+              <a href="#"><i class="ri-instagram-line"></i></a>
+              <a href="#"><i class="ri-linkedin-fill"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-col">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#fleet">Our Fleet</a></li>
+              <li><a href="#how-it-works">How It Works</a></li>
+              <li><a href="#features">Why Choose Us</a></li>
+              <li><a href="#testimonials">Testimonials</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h3>Services</h3>
+            <ul class="footer-links">
+              <li><a href="#">Business Rentals</a></li>
+              <li><a href="#">Long-Term Leasing</a></li>
+              <li><a href="#">Airport Pickup</a></li>
+              <li><a href="#">One-Way Rentals</a></li>
+              <li><a href="#">Luxury Vehicles</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h3>Contact Us</h3>
+            <div class="footer-contact">
+              <p>
+                <i class="ri-map-pin-line"></i> 123 Rental Street, New York, NY
+                10001
+              </p>
+              <p><i class="ri-phone-line"></i> +1 (555) 123-4567</p>
+              <p><i class="ri-mail-line"></i> info@driveeasy.com</p>
+              <p><i class="ri-time-line"></i> Mon-Sun: 24/7</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>
+            &copy; 2023 DriveEasy. All Rights Reserved. |
+            <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("active");
+        mobileMenuBtn.innerHTML = mobileMenu.classList.contains("active")
+          ? '<i class="ri-close-line"></i>'
+          : '<i class="ri-menu-line"></i>';
+      });
+
+      // Close mobile menu when clicking on a link
+      const navLinks = document.querySelectorAll(".mobile-nav .nav-link");
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.remove("active");
+          mobileMenuBtn.innerHTML = '<i class="ri-menu-line"></i>';
+        });
+      });
+
+      // Header scroll effect
+      const header = document.getElementById("header");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          header.classList.add("scrolled");
+        } else {
+          header.classList.remove("scrolled");
+        }
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute("href");
+          if (targetId === "#") return;
+
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: "smooth",
+            });
+          }
+        });
+      });
+
+      // Fleet navigation tabs
+      const fleetButtons = document.querySelectorAll(".fleet-nav button");
+      fleetButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          fleetButtons.forEach((btn) => btn.classList.remove("active"));
+          button.classList.add("active");
+          // Here you would typically filter the fleet grid
+          // This is just UI for the demo
+        });
+      });
+
+      // Set min date for pickup and return dates
+      const today = new Date().toISOString().split("T")[0];
+      document.getElementById("pickup-date").min = today;
+      document.getElementById("return-date").min = today;
+
+      // Update return date min when pickup date changes
+      document
+        .getElementById("pickup-date")
+        .addEventListener("change", function () {
+          document.getElementById("return-date").min = this.value;
+        });
+    </script>
   </body>
 </html>
