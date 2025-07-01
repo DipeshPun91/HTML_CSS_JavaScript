@@ -20,11 +20,18 @@ navLinks.forEach((link) => {
 
 // Header scroll effect
 const header = document.getElementById("header");
+const headerContainer = document.querySelector(".header-container");
+const logoImg = document.querySelector(".logo img");
+
 window.addEventListener("scroll", () => {
   if (window.scrollY > 50) {
     header.classList.add("scrolled");
+    headerContainer.classList.add("scrolled");
+    logoImg.classList.add("scrolled");
   } else {
     header.classList.remove("scrolled");
+    headerContainer.classList.remove("scrolled");
+    logoImg.classList.remove("scrolled");
   }
 });
 
