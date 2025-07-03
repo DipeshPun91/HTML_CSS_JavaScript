@@ -64,9 +64,9 @@ img {
 
 .btn {
   display: inline-block;
-  padding: 0.75rem 1.5rem;
+  padding: 0.5rem 1.25rem;
   border-radius: var(--border-radius);
-  font-weight: 600;
+  font-size: 0.9rem;
   text-align: center;
   transition: var(--transition);
   cursor: pointer;
@@ -96,8 +96,8 @@ img {
 }
 
 .btn-large {
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
 }
 
 .section {
@@ -146,11 +146,11 @@ header.scrolled {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px;
+  height: 50px;
 }
 
 .header-container.scrolled {
-  height: 50px;
+  height: 45px;
 }
 
 .logo {
@@ -722,8 +722,14 @@ footer {
     display: none;
   }
 
+  .nav-cta {
+    display: none;
+  }
+
   .mobile-menu-btn {
     display: block;
+    font-size: 1.25rem;
+    padding: 0.25rem;
   }
 
   .hero h1 {
@@ -736,6 +742,14 @@ footer {
 }
 
 @media (max-width: 768px) {
+  .logo h1 {
+    font-size: 1.25rem;
+  }
+
+  .logo img {
+    width: 30px;
+  }
+
   .hero {
     min-height: 600px;
   }
@@ -757,6 +771,15 @@ footer {
 
   .steps {
     padding-top: 5rem;
+  }
+
+  .mobile-cta .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .header-container {
+    padding: 0 1rem;
   }
 }
 
