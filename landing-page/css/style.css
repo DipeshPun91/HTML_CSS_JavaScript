@@ -246,19 +246,25 @@ header.scrolled {
   background-position: center;
   background-repeat: no-repeat;
   height: 100vh;
-  min-height: 700px;
   display: flex;
   align-items: center;
   color: white;
   position: relative;
 }
 
+.hero .container {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
 .hero-content {
   max-width: 600px;
+  margin-top: 4rem;
 }
 
 .hero h1 {
-  font-size: 3.5rem;
+  font-size: 3rem;
   margin-bottom: 1.5rem;
   line-height: 1.2;
 }
@@ -279,12 +285,8 @@ header.scrolled {
   border-radius: var(--border-radius);
   padding: 2rem;
   box-shadow: var(--shadow-lg);
-  position: absolute;
-  bottom: -80px;
-  width: calc(100% - 3rem);
-  max-width: 1200px;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 100%;
+  margin-top: 2rem;
 }
 
 .form-grid {
@@ -294,7 +296,7 @@ header.scrolled {
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 0;
 }
 
 .form-group label {
